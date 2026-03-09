@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FDFCF8;
+  --foreground: #2D3436;
+  --card: #E3D5CA;
+  --accent: #8FA998;
+  --accent-vibrant: #6C8E77;
+  /* Plus saturé */
+  --border: #F4EFEA;
+  --glow: 0 0 20px rgba(143, 169, 152, 0.2);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0A0A0A;
+  --foreground: #FDFCF8;
+  --card: #141414;
+  --accent: #8FA998;
+  --accent-vibrant: #A4C3AF;
+  /* Plus clair pour le dark mode */
+  --border: #1F1F1F;
+  --glow: 0 0 30px rgba(143, 169, 152, 0.15);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist), var(--font-readex), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-dashboard {
+  font-family: var(--font-geist), system-ui, sans-serif;
+  font-weight: 700;
+}
+
+@layer components {
+  .btn-whatsapp {
+    @apply bg-[#8FA998] text-white px-6 py-3 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-all font-medium;
+  }
+
+  .card-premium {
+    @apply bg-[#E3D5CA] rounded-2xl shadow-sm border border-[#F4EFEA] overflow-hidden;
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-shine {
+  animation: shine 2s infinite ease-in-out;
+}
+
+:lang(ar) {
+  font-family: var(--font-readex), sans-serif;
+}
+
+:lang(fr),
+:lang(en) {
+  font-family: var(--font-geist), sans-serif;
 }

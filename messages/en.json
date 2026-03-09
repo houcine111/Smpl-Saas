@@ -1,0 +1,243 @@
+{
+    "Common": {
+        "appName": "Smpl",
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "next": "Next",
+        "previous": "Previous",
+        "connexion": "Sign In",
+        "start": "Start"
+    },
+    "Landing": {
+        "nav": {
+            "solution": "Solution",
+            "why": "Why Smpl?"
+        },
+        "hero": {
+            "badge": "Now in Premium version",
+            "title": "Selling has never been",
+            "titleAccent": "so simple.",
+            "subtitle": "Turn your passion into a business in 60 seconds. Get paid via WhatsApp, manage your inventory, and offer a luxurious experience to your customers.",
+            "ctaPrimary": "Create my store",
+            "ctaSecondary": "Discover our solution"
+        },
+        "features": {
+            "badge": "What is Smpl?",
+            "title": "More than a store, a gateway to your customers.",
+            "desc": "Smpl is the SaaS platform designed for creators who prioritize human contact. No complex sales funnels, just an elegant link to your products and an order finalized where your customers already are: WhatsApp.",
+            "items": {
+                "whatsapp": "Direct WhatsApp Dialogue",
+                "dashboard": "Professional Management Dashboard",
+                "speed": "1-minute Activation",
+                "commission": "Zero commission on sales"
+            },
+            "quote": "The elegance of digital, the proximity of the real."
+        },
+        "why": {
+            "badge": "Why Smpl?",
+            "title": "Because luxury is simplicity.",
+            "speed": {
+                "title": "Speed",
+                "desc": "Time is your most precious resource. Launch your catalog and start selling instantly."
+            },
+            "heritage": {
+                "title": "Heritage",
+                "desc": "Keep full control over your brand. Your customers, your data, your WhatsApp number."
+            },
+            "aesthetic": {
+                "title": "Aesthetics",
+                "desc": "Every pixel is designed to reflect the quality of your products. A storefront worthy of the finest brands."
+            }
+        },
+        "newsletter": {
+            "title": "Join the direct sales movement.",
+            "desc": "Sign up to receive our advice on tomorrow's e-commerce and Smpl news.",
+            "placeholder": "your@email.com",
+            "button": "Subscribe"
+        }
+    },
+    "Auth": {
+        "login": {
+            "title": "Welcome",
+            "subtitle": "Sign in to manage your store and orders.",
+            "emailLabel": "Email Address",
+            "passwordLabel": "Password",
+            "button": "Sign In",
+            "noAccount": "Don't have a store yet?",
+            "createAccount": "Create one now"
+        },
+        "register": {
+            "title": "Create your Smpl store",
+            "subtitle": "Launch your store in seconds and start selling everywhere.",
+            "storeNameLabel": "Store Name",
+            "storeNamePlaceholder": "My Awesome Store",
+            "slugLabel": "Store URL / Slug",
+            "slugPlaceholder": "my-awesome-store",
+            "slugOptional": "Optional",
+            "whatsappLabel": "WhatsApp Number",
+            "whatsappPlaceholder": "Enter your number",
+            "emailLabel": "Email Address",
+            "passwordLabel": "Password",
+            "confirmPasswordLabel": "Confirm Password",
+            "button": "Establish my store",
+            "hasAccount": "Already have a store?",
+            "signIn": "Sign In"
+        }
+    },
+    "Dashboard": {
+        "welcome": "Hello {name}!",
+        "subtitle": "Summary of your store activities.",
+        "newProduct": "New Product",
+        "addProduct": "Add a product",
+        "empty": "Your store is empty",
+        "emptyDesc": "Add your first products to start receiving sales on WhatsApp.",
+        "stats": {
+            "sales": "Total Sales",
+            "orders": "Orders",
+            "products": "Active Products"
+        },
+        "nav": {
+            "home": "Overview",
+            "products": "Products",
+            "orders": "Orders",
+            "settings": "Settings"
+        },
+        "recentOrders": {
+            "title": "Recent Orders",
+            "viewAll": "View all",
+            "empty": "No orders for now"
+        },
+        "ordersList": {
+            "searchPlaceholder": "Search for an order...",
+            "totalCount": "{count} Orders total",
+            "noResults": "No results found",
+            "customer": "Customer",
+            "city": "City",
+            "price": "Price",
+            "status": "Status",
+            "date": "Date",
+            "whatsapp": "WhatsApp",
+            "statusLabels": {
+                "PENDING": "Pending",
+                "CONFIRMED": "Confirmed",
+                "SHIPPED": "Shipped",
+                "DELIVERED": "Delivered",
+                "CANCELLED": "Cancelled"
+            },
+            "toast": {
+                "updated": "Status updated",
+                "error": "Error during update"
+            }
+        },
+        "sidebar": {
+            "viewStore": "View my Store",
+            "signOut": "Sign Out"
+        }
+    },
+    "Legal": {
+        "privacy": {
+            "title": "Privacy Policy",
+            "lastUpdated": "Last updated: March 2026",
+            "sections": {
+                "collection": {
+                    "title": "1. Data Collection",
+                    "content": "We collect information you provide directly to us when you create an account, such as your store name, email address, and WhatsApp number."
+                },
+                "usage": {
+                    "title": "2. Use of Information",
+                    "content": "We use the information we collect to provide, maintain, and improve our services, and to communicate with you."
+                },
+                "sharing": {
+                    "title": "3. Data Sharing",
+                    "content": "We do not share your personal data with third parties except as necessary to provide our services or as required by law."
+                }
+            }
+        },
+        "terms": {
+            "title": "Terms of Service",
+            "lastUpdated": "Last updated: March 2026",
+            "sections": {
+                "acceptance": {
+                    "title": "1. Acceptance of Terms",
+                    "content": "By accessing or using Smpl, you agree to be bound by these Terms of Service."
+                },
+                "use": {
+                    "title": "2. Use of Service",
+                    "content": "You are responsible for your use of the service and for any content you provide."
+                },
+                "termination": {
+                    "title": "3. Termination",
+                    "content": "We may terminate or suspend your access to the service at any time, without prior notice or liability."
+                }
+            }
+        }
+    },
+    "Admin": {
+        "dashboard": {
+            "title": "Global Dashboard",
+            "subtitle": "Monitor performance and health of your SaaS.",
+            "stats": {
+                "vendors": "Vendors",
+                "products": "Products",
+                "orders": "Orders",
+                "revenue": "Revenue"
+            },
+            "activities": {
+                "title": "Latest Activities",
+                "empty": "No recent activity."
+            },
+            "quickActions": {
+                "title": "Moderation",
+                "createUser": "Create",
+                "maintenance": "Maintenance"
+            }
+        },
+        "create": {
+            "title": "New User",
+            "subtitle": "Add an administrator or a new partner to the platform.",
+            "back": "Back",
+            "form": {
+                "success": "User created successfully!",
+                "emailLabel": "Email",
+                "passwordLabel": "Password",
+                "storeNameLabel": "Store Name",
+                "slugLabel": "Slug",
+                "whatsappLabel": "WhatsApp",
+                "isAdminLabel": "Is admin",
+                "isAdminDesc": "Set as Administrator",
+                "pending": "Creating...",
+                "submit": "Create"
+            }
+        },
+        "users": {
+            "title": "Platform Members",
+            "subtitle": "Supervision of administrators and partners.",
+            "admins": "Admin Team",
+            "vendors": "Vendors"
+        }
+    },
+    "Errors": {
+        "AUTH_EXPIRED": "Your session has expired.",
+        "redirecting": "Redirecting to login page...",
+        "INVALID_INPUT": "Invalid data provided.",
+        "INTERNAL_ERROR": "An internal error occurred.",
+        "NOT_FOUND": "Resource not found.",
+        "FORBIDDEN": "Access denied.",
+        "SLUG_TAKEN": "This slug is already in use. Please choose another one.",
+        "boundary": {
+            "title": "Something went wrong.",
+            "description": "We encountered an unexpected error. Our teams have been notified.",
+            "retry": "Try again",
+            "home": "Back to Home"
+        }
+    },
+    "Seo": {
+        "title": "Smpl – Premium SaaS Store Platform",
+        "description": "Turn your passion into a business in 60 seconds. Get paid via WhatsApp, manage your inventory, and offer a luxurious experience to your customers."
+    }
+}

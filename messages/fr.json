@@ -1,0 +1,245 @@
+{
+    "Common": {
+        "appName": "Smpl",
+        "loading": "Chargement...",
+        "error": "Une erreur est survenue",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "add": "Ajouter",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "connexion": "Connexion",
+        "start": "Démarrer"
+    },
+    "Landing": {
+        "nav": {
+            "solution": "Solution",
+            "why": "Pourquoi Smpl?"
+        },
+        "hero": {
+            "badge": "Maintenant en version Premium",
+            "title": "Vendre n'a jamais été",
+            "titleAccent": "aussi simple.",
+            "subtitle": "Transformez votre passion en business en 60 secondes. Encaissez via WhatsApp, gérez vos stocks, et offrez une expérience luxueuse à vos clients.",
+            "ctaPrimary": "Créer ma boutique",
+            "ctaSecondary": "Découvrir la solution"
+        },
+        "features": {
+            "badge": "C'est quoi Smpl ?",
+            "title": "Plus qu'une boutique, une passerelle vers vos clients.",
+            "desc": "Smpl est la plateforme SaaS conçue pour les créateurs qui privilégient le contact humain. Pas de tunnels de vente complexes, juste un lien élégant vers vos produits et une commande finalisée là où vos clients sont déjà : WhatsApp.",
+            "items": {
+                "whatsapp": "Dialogue direct WhatsApp",
+                "dashboard": "Dashboard de gestion pro",
+                "speed": "Activation en 1 minute",
+                "commission": "Zéro commission sur ventes"
+            },
+            "quote": "L'élégance du digital, la proximité du réel."
+        },
+        "why": {
+            "badge": "Pourquoi Smpl ?",
+            "title": "Parce que le luxe, c'est la simplicité.",
+            "speed": {
+                "title": "Rapidité",
+                "desc": "Le temps est votre ressource la plus précieuse. Lancez votre catalogue et commencez à vendre instantanément."
+            },
+            "heritage": {
+                "title": "Héritage",
+                "desc": "Gardez le contrôle total sur votre marque. Vos clients, vos données, votre numéro WhatsApp."
+            },
+            "aesthetic": {
+                "title": "Esthétique",
+                "desc": "Chaque pixel est pensé pour refléter la qualité de vos produits. Un storefront digne des plus grandes maisons."
+            }
+        },
+        "newsletter": {
+            "title": "Rejoignez le mouvement de la vente directe.",
+            "desc": "Inscrivez-vous pour recevoir nos conseils sur le e-commerce de demain et les nouveautés Smpl.",
+            "placeholder": "votre@email.com",
+            "button": "S'inscrire"
+        }
+    },
+    "Auth": {
+        "login": {
+            "title": "Bienvenue",
+            "subtitle": "Connectez-vous pour gérer votre boutique et vos commandes.",
+            "emailLabel": "Adresse Email",
+            "passwordLabel": "Mot de passe",
+            "button": "Se connecter",
+            "noAccount": "Vous n'avez pas encore de boutique ?",
+            "createAccount": "Créez-en une maintenant"
+        },
+        "register": {
+            "title": "Créez votre boutique Smpl",
+            "subtitle": "Lancez votre boutique en quelques secondes et commencez à vendre partout.",
+            "storeNameLabel": "Nom de la Boutique",
+            "storeNamePlaceholder": "Ma Super Boutique",
+            "slugLabel": "URL de la Boutique / Slug",
+            "slugPlaceholder": "ma-super-boutique",
+            "slugOptional": "Optionnel",
+            "whatsappLabel": "Numéro WhatsApp",
+            "whatsappPlaceholder": "Entrez votre numéro",
+            "emailLabel": "Adresse Email",
+            "passwordLabel": "Mot de passe",
+            "confirmPasswordLabel": "Confirmer le mot de passe",
+            "button": "Établir ma boutique",
+            "hasAccount": "Vous avez déjà une boutique ?",
+            "signIn": "Se connecter"
+        }
+    },
+    "Dashboard": {
+        "welcome": "Hello {name} !",
+        "subtitle": "Résumé de l'activité de votre boutique.",
+        "newProduct": "Nouveau Produit",
+        "addProduct": "Ajouter un produit",
+        "empty": "Votre boutique est vide",
+        "emptyDesc": "Ajoutez vos premiers produits pour commencer à recevoir des ventes sur WhatsApp.",
+        "stats": {
+            "sales": "Chiffre d'Affaires",
+            "orders": "Commandes",
+            "products": "Produits Actifs"
+        },
+        "nav": {
+            "home": "Vue d'ensemble",
+            "products": "Produits",
+            "orders": "Commandes",
+            "settings": "Paramètres"
+        },
+        "recentOrders": {
+            "title": "Commandes Récentes",
+            "viewAll": "Voir tout",
+            "empty": "Aucune commande pour le moment"
+        },
+        "ordersList": {
+            "searchPlaceholder": "Rechercher une commande...",
+            "totalCount": "{count} Commandes au total",
+            "noResults": "Aucun résultat trouvé",
+            "customer": "Client",
+            "city": "Ville",
+            "price": "Prix",
+            "status": "Statut",
+            "date": "Date",
+            "whatsapp": "WhatsApp",
+            "prev": "Précédent",
+            "next": "Suivant",
+            "statusLabels": {
+                "PENDING": "En attente",
+                "CONFIRMED": "Confirmé",
+                "SHIPPED": "Expédié",
+                "DELIVERED": "Livré",
+                "CANCELLED": "Annulé"
+            },
+            "toast": {
+                "updated": "Statut mis à jour",
+                "error": "Erreur lors de la mise à jour"
+            }
+        },
+        "sidebar": {
+            "viewStore": "Voir ma Boutique",
+            "signOut": "Déconnexion"
+        }
+    },
+    "Legal": {
+        "privacy": {
+            "title": "Politique de Confidentialité",
+            "lastUpdated": "Dernière mise à jour : Mars 2026",
+            "sections": {
+                "collection": {
+                    "title": "1. Collecte des données",
+                    "content": "Nous collectons les informations que vous nous fournissez directement lors de la création de votre compte, telles que le nom de votre boutique, votre adresse e-mail et votre numéro WhatsApp."
+                },
+                "usage": {
+                    "title": "2. Utilisation des informations",
+                    "content": "Nous utilisons les informations collectées pour fournir, maintenir et améliorer nos services, ainsi que pour communiquer avec vous."
+                },
+                "sharing": {
+                    "title": "3. Partage des données",
+                    "content": "Nous ne partageons pas vos données personnelles avec des tiers, sauf si nécessaire pour fournir nos services ou si la loi l'exige."
+                }
+            }
+        },
+        "terms": {
+            "title": "Conditions d'Utilisation",
+            "lastUpdated": "Dernière mise à jour : Mars 2026",
+            "sections": {
+                "acceptance": {
+                    "title": "1. Acceptation des conditions",
+                    "content": "En accédant à ou en utilisant Smpl, vous acceptez d'être lié par ces Conditions d'Utilisation."
+                },
+                "use": {
+                    "title": "2. Utilisation du service",
+                    "content": "Vous êtes responsable de votre utilisation du service et de tout contenu que vous fournissez."
+                },
+                "termination": {
+                    "title": "3. Résiliation",
+                    "content": "Nous pouvons résilier ou suspendre votre accès au service à tout moment, sans préavis ni responsabilité."
+                }
+            }
+        }
+    },
+    "Admin": {
+        "dashboard": {
+            "title": "Tableau de Bord Global",
+            "subtitle": "Surveillez les performances et la santé de votre SaaS.",
+            "stats": {
+                "vendors": "Vendeurs",
+                "products": "Produits",
+                "orders": "Commandes",
+                "revenue": "Chiffre d'Affaires"
+            },
+            "activities": {
+                "title": "Dernières Activités",
+                "empty": "Aucune activité récente."
+            },
+            "quickActions": {
+                "title": "Modération",
+                "createUser": "Créer",
+                "maintenance": "Maintenance"
+            }
+        },
+        "create": {
+            "title": "Nouvel Utilisateur",
+            "subtitle": "Ajoutez un administrateur ou un nouveau partenaire.",
+            "back": "Retour",
+            "form": {
+                "success": "Utilisateur créé avec succès !",
+                "emailLabel": "Email",
+                "passwordLabel": "Mot de passe",
+                "storeNameLabel": "Nom de la Boutique",
+                "slugLabel": "Slug",
+                "whatsappLabel": "WhatsApp",
+                "isAdminLabel": "Is admin",
+                "isAdminDesc": "Définir comme administrateur",
+                "pending": "Création en cours...",
+                "submit": "Créer"
+            }
+        },
+        "users": {
+            "title": "Membres de la Plateforme",
+            "subtitle": "Supervision des administrateurs et des boutiques partenaires.",
+            "admins": "Équipe Admin",
+            "vendors": "Vendeurs"
+        }
+    },
+    "Errors": {
+        "AUTH_EXPIRED": "Votre session a expiré.",
+        "redirecting": "Redirection vers la page de connexion...",
+        "INVALID_INPUT": "Données invalides fournies.",
+        "INTERNAL_ERROR": "Une erreur interne est survenue.",
+        "NOT_FOUND": "Ressource introuvable.",
+        "FORBIDDEN": "Accès refusé.",
+        "SLUG_TAKEN": "Ce slug est déjà utilisé. Veuillez en choisir un autre.",
+        "boundary": {
+            "title": "Quelque chose s'est mal passé.",
+            "description": "Nous avons rencontré une erreur inattendue. Nos équipes ont été prévenues.",
+            "retry": "Réessayer",
+            "home": "Retour à l'accueil"
+        }
+    },
+    "Seo": {
+        "title": "Smpl – Plateforme de Boutique SaaS Premium",
+        "description": "Transformez votre passion en business en 60 secondes. Encaissez via WhatsApp, gérez vos stocks, et offrez une expérience luxueuse à vos clients."
+    }
+}

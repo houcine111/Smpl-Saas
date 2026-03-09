@@ -1,0 +1,100 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js (App Router)
+  - Supabase (Auth, DB, Storage)
+  - Tailwind CSS
+  - Framer Motion
+routes:
+  - path: /login
+    file: src/app/[locale]/login/page.tsx
+    auth_required: false
+    description: User login page
+  - path: /register
+    file: src/app/[locale]/register/page.tsx
+    auth_required: false
+    description: Vendor registration page
+  - path: /dashboard
+    file: src/app/[locale]/(vendor)/dashboard/page.tsx
+    auth_required: true
+    description: Vendor dashboard home
+  - path: /dashboard/products
+    file: src/app/[locale]/(vendor)/dashboard/products/page.tsx
+    auth_required: true
+    description: Product management page
+  - path: /dashboard/orders
+    file: src/app/[locale]/(vendor)/dashboard/orders/page.tsx
+    auth_required: true
+    description: Order management page
+  - path: /dashboard/settings
+    file: src/app/[locale]/(vendor)/dashboard/settings/page.tsx
+    auth_required: true
+    description: Settings page
+  - path: /admin
+    file: src/app/[locale]/(admin)/admin/page.tsx
+    auth_required: true
+    description: Platform admin list
+  - path: /admin/create
+    file: src/app/[locale]/(admin)/admin/create/page.tsx
+    auth_required: true
+    description: Create vendor or admin
+  - path: /[slug]
+    file: src/app/[locale]/(public)/[slug]/page.tsx
+    auth_required: false
+    description: Public shop feed
+features:
+  - name: User Login
+    description: Login with email and password using Supabase Auth
+    files:
+      - src/app/[locale]/login/page.tsx
+      - src/lib/supabase/client.ts
+    entry_route: /login
+    user_interactions:
+      - Fill email input field
+      - Fill password input field
+      - Click Login button
+    api_calls:
+      - method: POST
+        endpoint: /auth/v1/token?grant_type=password
+    auth_required: false
+  - name: Vendor Registration
+    description: Register as a new vendor with shop slug and WhatsApp number
+    files:
+      - src/app/[locale]/register/page.tsx
+      - src/app/[locale]/vendor-actions.ts
+    entry_route: /register
+    user_interactions:
+      - Fill email and password
+      - Fill shop name and slug
+      - Fill WhatsApp number with international format
+      - Click Register button
+    api_calls:
+      - method: POST
+        endpoint: /auth/v1/signup
+    auth_required: false
+  - name: Product Management
+    description: CRUD operations for vendor products with multi-image support (5 images) and soft delete
+    files:
+      - src/app/[locale]/(vendor)/dashboard/products/page.tsx
+      - src/app/[locale]/product-actions.ts
+    entry_route: /dashboard/products
+    user_interactions:
+      - Click Add Product
+      - Fill product details (Name, Price, Stock)
+      - Upload/Paste up to 5 image URLs
+      - Toggle visibility
+      - Click Delete (Soft Delete)
+    auth_required: true
+  - name: Public Order Flow
+    description: "Customers view the shop, open a product drawer, and order via WhatsApp"
+    files:
+      - src/app/[locale]/(public)/[slug]/page.tsx
+      - src/app/[locale]/order-actions.ts
+    entry_route: /[slug]
+    user_interactions:
+      - Click on a product image
+      - Fill customer details (Name, City, Phone) in the Vaul drawer
+      - Click 'Order via WhatsApp'
+    auth_required: false
+known_limitations: []
