@@ -8,6 +8,7 @@ import { X, Send, User, Phone, MapPin, ShoppingBag, Loader2, MessageCircle } fro
 import { createOrder } from '../../order-actions'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
+import { useTranslations } from 'next-intl'
 
 interface OrderDrawerProps {
     isOpen: boolean
@@ -18,6 +19,7 @@ interface OrderDrawerProps {
 }
 
 export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vendor }: OrderDrawerProps) {
+    const t = useTranslations('Storefront')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [customerPhone, setCustomerPhone] = useState<string | undefined>()
@@ -65,14 +67,15 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                 .join('\n')
 
             const message = encodeURIComponent(
-                `Bonjour *${vendor.storeName}* !\n\n` +
-                `Je souhaite commander :\n${itemsList}\n\n` +
-                `💰 *Total : ${totalPrice} DH*\n\n` +
-                `📍 *Mes informations :*\n` +
-                `- Nom : ${customerName}\n` +
-                `- Ville : ${customerCity}\n` +
-                `- Tel : ${customerPhone}\n\n` +
-                `Merci de me confirmer la disponibilité !`
+                t('whatsappMessage', {
+                    store: vendor.storeName || '',
+                    items: itemsList,
+                    total: totalPrice,
+                    currency: t('currency'),
+                    name: customerName,
+                    city: customerCity,
+                    phone: customerPhone
+                })
             )
 
             // 3. Redirect to WhatsApp
@@ -122,10 +125,10 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
 
                         <div className="max-w-md mx-auto">
                             <Drawer.Title className="text-2xl font-bold text-zinc-900 dark:text-white mb-2">
-                                Votre Commande
+                                {t('drawerTitle')}
                             </Drawer.Title>
                             <Drawer.Description className="text-zinc-500 dark:text-zinc-400 mb-8">
-                                Finalisez votre commande et contactez le vendeur sur WhatsApp.
+                                {t('drawerDesc')}
                             </Drawer.Description>
 
                             {/* Summary */}
@@ -145,8 +148,8 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                                 </div>
                                 <div className="h-px bg-zinc-200 dark:bg-zinc-800 mb-4" />
                                 <div className="flex justify-between items-center">
-                                    <span className="text-sm font-medium text-zinc-500">Total à payer</span>
-                                    <span className="text-xl font-black">{totalPrice.toLocaleString()} DH</span>
+                                    <span className="text-sm font-medium text-zinc-500">{t('totalToPay')}</span>
+                                    <span className="text-xl font-black">{totalPrice.toLocaleString()} {t('currency')}</span>
                                 </div>
                             </div>
 
@@ -155,7 +158,7 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                                 <div className="grid grid-cols-1 gap-5">
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            Nom Complet
+                                            {t('fullName')}
                                         </label>
                                         <div className="relative group">
                                             <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-black dark:group-focus-within:text-white transition-colors" />
@@ -170,7 +173,7 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
 
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            Téléphone
+                                            {t('phone')}
                                         </label>
                                         <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl focus-within:ring-2 focus-within:ring-black dark:focus-within:ring-white transition-all">
                                             <PhoneInput
@@ -186,7 +189,7 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
 
                                     <div className="space-y-2">
                                         <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            Ville de livraison
+                                            {t('city')}
                                         </label>
                                         <div className="relative group">
                                             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-black dark:group-focus-within:text-white transition-colors" />
@@ -216,7 +219,7 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                                     ) : (
                                         <>
                                             <MessageCircle className="w-5 h-5" />
-                                            Commander via WhatsApp
+                                            {t('drawerButton')}
                                         </>
                                     )}
                                 </button>

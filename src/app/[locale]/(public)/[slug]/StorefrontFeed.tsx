@@ -9,12 +9,15 @@ import { ProductImageGallery } from '@/components/products/ProductImageGallery'
 
 import OrderDrawer from './OrderDrawer'
 
+import { useTranslations } from 'next-intl'
+
 interface StorefrontFeedProps {
     vendor: Vendor
     products: Product[]
 }
 
 export default function StorefrontFeed({ vendor, products }: StorefrontFeedProps) {
+    const t = useTranslations('Storefront')
     const [cart, setCart] = useState<{ [productId: string]: number }>({})
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
@@ -37,22 +40,22 @@ export default function StorefrontFeed({ vendor, products }: StorefrontFeedProps
     }
 
     return (
-        <div className="max-w-2xl mx-auto pb-40">
+        <div className="max-w-3xl mx-auto pb-40">
             {/* Header */}
-            <header className="sticky top-0 z-30 bg-[#FDFCF8]/90 backdrop-blur-2xl border-b border-zinc-100 px-6 py-8">
+            <header className="sticky top-0 z-30 bg-[#FDFCF8]/90 backdrop-blur-2xl border-b border-zinc-100 px-4 sm:px-6 py-6 sm:py-8">
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 bg-black rounded-[1.25rem] flex items-center justify-center shadow-2xl shadow-black/10 transition-transform hover:scale-105 duration-500">
-                            <span className="text-white font-serif italic text-2xl">{vendor.storeName?.charAt(0)}</span>
+                    <div className="flex items-center gap-4 sm:gap-5">
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 bg-black rounded-[1.25rem] flex items-center justify-center shadow-2xl shadow-black/10 transition-transform hover:scale-105 duration-500">
+                            <span className="text-white font-serif italic text-xl sm:text-2xl">{vendor.storeName?.charAt(0)}</span>
                         </div>
                         <div>
-                            <h1 className="text-2xl font-serif font-black tracking-tight text-zinc-950 italic">
+                            <h1 className="text-xl sm:text-2xl font-serif font-black tracking-tight text-zinc-950 italic">
                                 {vendor.storeName}
                             </h1>
                             <div className="flex items-center gap-2 mt-0.5">
                                 <div className="w-1 h-1 rounded-full bg-[#8FA998]"></div>
                                 <p className="text-[10px] text-zinc-400 font-black uppercase tracking-[0.2em]">
-                                    Boutique Officielle
+                                    {t('officialStore')}
                                 </p>
                             </div>
                         </div>
@@ -61,77 +64,76 @@ export default function StorefrontFeed({ vendor, products }: StorefrontFeedProps
                         href={`https://wa.me/${vendor.whatsappNumber?.replace('+', '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-12 h-12 bg-[#8FA998]/10 text-[#8FA998] rounded-2xl flex items-center justify-center hover:bg-[#8FA998] hover:text-white transition-all duration-500"
+                        className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 bg-[#8FA998]/10 text-[#8FA998] rounded-xl sm:rounded-2xl flex items-center justify-center hover:bg-[#8FA998] hover:text-white transition-all duration-500"
                     >
-                        <MessageCircle className="w-5 h-5" />
+                        <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                     </a>
                 </div>
             </header>
 
             {/* Product Feed */}
-            <div className="px-6 py-12 space-y-16">
+            <div className="px-4 sm:px-6 py-8 space-y-4">
                 {products.length === 0 ? (
-                    <div className="text-center py-32 space-y-4">
-                        <ShoppingBag className="w-16 h-16 text-zinc-100 mx-auto mb-6" />
-                        <h2 className="text-2xl font-serif font-black italic text-zinc-300">Catalogue en préparation</h2>
-                        <p className="text-zinc-400 text-sm font-medium">Revenez très bientôt pour découvrir nos nouveautés.</p>
+                    <div className="text-center py-20 space-y-4">
+                        <ShoppingBag className="w-12 h-12 text-zinc-200 mx-auto mb-4" />
+                        <h2 className="text-xl font-serif font-black italic text-zinc-400">{t('emptyTitle')}</h2>
+                        <p className="text-zinc-500 text-sm font-medium">{t('emptyDesc')}</p>
                     </div>
                 ) : (
                     products.map((product, idx) => (
                         <motion.div
                             key={product.id}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: idx * 0.1 }}
-                            className="group relative"
+                            transition={{ duration: 0.5, delay: idx * 0.05 }}
+                            className="group flex flex-row items-center gap-4 bg-white p-3 sm:p-4 rounded-[1.5rem] sm:rounded-[2rem] border border-zinc-100 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all duration-500"
                         >
-                            <div className="aspect-[4/5] bg-[#FAF9F6] rounded-[3rem] overflow-hidden mb-8 shadow-sm group-hover:shadow-2xl group-hover:shadow-black/5 transition-all duration-700 border border-zinc-100 relative">
+                            <div className="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-[#FAF9F6] rounded-[1rem] sm:rounded-[1.5rem] overflow-hidden relative border border-zinc-100">
                                 <ProductImageGallery imageUrls={product.imageUrls} name={product.name} />
+                            </div>
 
-                                <div className="absolute bottom-6 left-6 z-10">
-                                    <div className="bg-black/80 backdrop-blur-xl px-5 py-2.5 rounded-2xl border border-white/10 shadow-2xl">
-                                        <p className="font-black text-white text-sm tracking-widest">{product.price.toFixed(2)} DH</p>
-                                    </div>
+                            <div className="flex-1 min-w-0 py-1 flex flex-col justify-between self-stretch">
+                                <div className="space-y-1">
+                                    <h3 className="text-lg sm:text-2xl font-serif font-black text-zinc-950 truncate italic group-hover:text-zinc-600 transition-colors">
+                                        {product.name}
+                                    </h3>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400 truncate">
+                                        {t('collection')}
+                                    </p>
+                                </div>
+                                <div className="mt-auto flex items-center justify-between pt-2">
+                                    <p className="font-black text-zinc-900 text-sm sm:text-base bg-zinc-50 px-3 py-1 rounded-lg border border-zinc-100">{product.price.toFixed(2)} {t('currency')}</p>
                                 </div>
                             </div>
 
-                            <div className="flex justify-between items-end px-2 gap-4">
-                                <div className="space-y-2">
-                                    <h3 className="text-3xl font-serif font-black text-zinc-950 group-hover:text-zinc-600 transition-colors italic leading-none">
-                                        {product.name}
-                                    </h3>
-                                    <p className="text-xs font-black uppercase tracking-[0.2em] text-zinc-400">
-                                        Collection Signature
-                                    </p>
-                                </div>
-
-                                <div className="flex items-center gap-3 bg-white rounded-2xl p-2 border border-zinc-100 shadow-xl shadow-black/5">
+                            <div className="shrink-0 flex items-center pl-2">
+                                <div className="flex flex-col sm:flex-row items-center gap-2 bg-zinc-50 rounded-[1.25rem] p-1.5 border border-zinc-100 shadow-inner">
                                     {cart[product.id] ? (
                                         <>
                                             <button
                                                 onClick={() => updateQuantity(product.id, -1)}
-                                                className="w-10 h-10 rounded-xl bg-zinc-50 flex items-center justify-center hover:bg-zinc-100 transition-colors"
+                                                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-white flex items-center justify-center hover:bg-zinc-100 transition-colors shadow-sm"
                                             >
-                                                <Minus className="w-4 h-4 text-zinc-400" />
+                                                <Minus className="w-3 h-3 sm:w-4 sm:h-4 text-zinc-400" />
                                             </button>
-                                            <span className="w-8 text-center font-black text-sm text-zinc-950">
+                                            <span className="w-6 sm:w-8 text-center font-black text-xs sm:text-sm text-zinc-950">
                                                 {cart[product.id]}
                                             </span>
                                             <button
                                                 onClick={() => updateQuantity(product.id, 1)}
-                                                className="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity"
+                                                className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-md"
                                             >
-                                                <Plus className="w-4 h-4" />
+                                                <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
                                             </button>
                                         </>
                                     ) : (
                                         <button
                                             onClick={() => updateQuantity(product.id, 1)}
-                                            className="px-8 py-3 bg-black text-white rounded-[1.25rem] font-black uppercase tracking-widest text-[10px] flex items-center gap-3 hover:translate-y-[-2px] transition-all shadow-xl shadow-black/10 active:scale-95"
+                                            className="w-10 h-10 sm:w-auto sm:px-6 sm:py-3 bg-black text-white rounded-[1rem] sm:rounded-xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 hover:scale-[1.02] transition-transform shadow-md"
                                         >
-                                            <Plus className="w-3 h-3" />
-                                            Ajouter au Panier
+                                            <Plus className="w-4 h-4 sm:w-3 sm:h-3" />
+                                            <span className="hidden sm:inline">{t('addToCart')}</span>
                                         </button>
                                     )}
                                 </div>
@@ -160,16 +162,16 @@ export default function StorefrontFeed({ vendor, products }: StorefrontFeedProps
                                 </div>
                                 <div className="text-left">
                                     <p className="text-[10px] opacity-50 font-black uppercase tracking-[0.2em] mb-0.5">
-                                        Votre Sélection ({totalItems})
+                                        {t('selection', { count: totalItems })}
                                     </p>
                                     <p className="text-lg font-black tracking-tight">
-                                        Finaliser la Commande
+                                        {t('checkout')}
                                     </p>
                                 </div>
                             </div>
                             <div className="relative z-10 text-right">
                                 <p className="text-2xl font-black italic">
-                                    {totalPrice.toLocaleString()} <span className="text-[10px] font-medium opacity-50 not-italic uppercase ml-1">DH</span>
+                                    {totalPrice.toLocaleString()} <span className="text-[10px] font-medium opacity-50 not-italic uppercase ml-1">{t('currency')}</span>
                                 </p>
                             </div>
 

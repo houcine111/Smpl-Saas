@@ -94,7 +94,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] sm:leading-[0.9] mb-6 sm:mb-10"
+              className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter leading-none md:leading-tight mb-6 sm:mb-10"
             >
               {t('hero.title')} <br className="hidden sm:block" />
               <span className="text-accent">{t('hero.titleAccent')}</span>

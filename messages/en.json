@@ -239,5 +239,23 @@
     "Seo": {
         "title": "Smpl – Premium SaaS Store Platform",
         "description": "Turn your passion into a business in 60 seconds. Get paid via WhatsApp, manage your inventory, and offer a luxurious experience to your customers."
+    },
+    "Storefront": {
+        "officialStore": "Official Store",
+        "emptyTitle": "Catalog in preparation",
+        "emptyDesc": "Check back soon to discover our new items.",
+        "collection": "Signature Collection",
+        "addToCart": "Add to Cart",
+        "selection": "Your Selection ({count})",
+        "checkout": "Complete Order",
+        "currency": "DH",
+        "drawerTitle": "Your Order",
+        "drawerDesc": "Complete your order and contact the seller on WhatsApp.",
+        "fullName": "Full Name",
+        "phone": "Phone Number",
+        "city": "Delivery City",
+        "totalToPay": "Total to pay",
+        "drawerButton": "Order via WhatsApp",
+        "whatsappMessage": "Hello *{store}* !\n\nI would like to order:\n{items}\n\n💰 *Total: {total} {currency}*\n\n📍 *My details:*\n- Name: {name}\n- City: {city}\n- Phone: {phone}\n\nPlease confirm availability!"
     }
 }

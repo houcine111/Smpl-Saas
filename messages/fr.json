@@ -239,7 +239,25 @@
         }
     },
     "Seo": {
-        "title": "Smpl – Plateforme de Boutique SaaS Premium",
-        "description": "Transformez votre passion en business en 60 secondes. Encaissez via WhatsApp, gérez vos stocks, et offrez une expérience luxueuse à vos clients."
+        "title": "Smpl – La plateforme eCommerce pour les puristes",
+        "description": "Transformez votre passion en business en 60 secondes. Encaissez sur WhatsApp, gérez votre inventaire et offrez une expérience premium à vos clients."
+    },
+    "Storefront": {
+        "officialStore": "Boutique Officielle",
+        "emptyTitle": "Catalogue en préparation",
+        "emptyDesc": "Revenez très bientôt pour découvrir nos nouveautés.",
+        "collection": "Collection Signature",
+        "addToCart": "Ajouter",
+        "selection": "Votre Sélection ({count})",
+        "checkout": "Finaliser la Commande",
+        "currency": "DH",
+        "drawerTitle": "Votre Commande",
+        "drawerDesc": "Finalisez votre commande et contactez le vendeur sur WhatsApp.",
+        "fullName": "Nom Complet",
+        "phone": "Téléphone",
+        "city": "Ville de livraison",
+        "totalToPay": "Total à payer",
+        "drawerButton": "Commander via WhatsApp",
+        "whatsappMessage": "Bonjour *{store}* !\n\nJe souhaite commander :\n{items}\n\n💰 *Total : {total} {currency}*\n\n📍 *Mes informations :*\n- Nom : {name}\n- Ville : {city}\n- Tel : {phone}\n\nMerci de me confirmer la disponibilité !"
     }
 }
