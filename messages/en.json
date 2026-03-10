@@ -178,6 +178,15 @@
         }
     },
     "Admin": {
+        "nav": {
+            "overview": "Overview",
+            "users": "Users",
+            "settings": "Settings",
+            "logout": "Sign Out",
+            "platform": "Admin Platform",
+            "management": "Management Platform",
+            "connected": "Connected"
+        },
         "dashboard": {
             "title": "Global Dashboard",
             "subtitle": "Monitor performance and health of your SaaS.",

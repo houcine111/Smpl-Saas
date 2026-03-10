@@ -180,6 +180,15 @@
         }
     },
     "Admin": {
+        "nav": {
+            "overview": "Vue d'ensemble",
+            "users": "Utilisateurs",
+            "settings": "Configuration",
+            "logout": "Déconnexion",
+            "platform": "Admin Plateforme",
+            "management": "Plateforme de Gestion",
+            "connected": "Connecté"
+        },
         "dashboard": {
             "title": "Tableau de Bord Global",
             "subtitle": "Surveillez les performances et la santé de votre SaaS.",
