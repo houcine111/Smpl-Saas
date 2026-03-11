@@ -11,16 +11,18 @@ export default getRequestConfig(async ({ requestLocale }) => {
     }
 
     try {
+        const messages = (await import(`../../messages/${locale}.json`)).default;
         return {
             locale,
-            messages: (await import(`../../messages/${locale}.json`)).default
+            messages
         };
     } catch (error) {
         // Fallback to default locale if translation file is missing
         console.warn(`Missing translation file for locale: ${locale}, falling back to ${routing.defaultLocale}`);
+        const fallbackMessages = (await import(`../../messages/${routing.defaultLocale}.json`)).default;
         return {
             locale: routing.defaultLocale,
-            messages: (await import(`../../messages/${routing.defaultLocale}.json`)).default
+            messages: fallbackMessages
         };
     }
 });

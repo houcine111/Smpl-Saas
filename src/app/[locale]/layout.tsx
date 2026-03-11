@@ -30,6 +30,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  console.log(`>>> Building metadata for locale: ${locale}`);
+  try {
   const t = await getTranslations({ locale, namespace: 'Seo' });
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -63,6 +65,13 @@ export async function generateMetadata({
       images: ['/Smpl.jpg'],
     },
   };
+  } catch (error) {
+    console.error(`>>> Error building metadata for locale ${locale}:`, error);
+    return {
+      title: 'Smpl – La plateforme eCommerce pour les puristes',
+      description: 'Transformez votre passion en business en 60 secondes. Encaissez sur WhatsApp, gérez votre inventaire et offrez une expérience premium à vos clients.',
+    };
+  }
 }
 
 export default async function RootLayout({
