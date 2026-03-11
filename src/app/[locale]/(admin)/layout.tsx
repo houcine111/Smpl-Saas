@@ -8,11 +8,12 @@ import { getTranslations } from 'next-intl/server'
 
 export default async function AdminLayout({
     children,
-    params: { locale }
+    params
 }: {
     children: React.ReactNode
-    params: { locale: string }
+    params: Promise<{ locale: string }>
 }) {
+    const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'Admin.nav' });
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
