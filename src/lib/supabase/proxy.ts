@@ -31,12 +31,10 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
                     return request.cookies.getAll()
                 },
                 setAll(cookiesToSet) {
-                    cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-                    response = existingResponse || NextResponse.next({
-                        request,
-                    })
-                    cookiesToSet.forEach(({ name, value, options }) =>
-                        response.cookies.set(name, value, options)
+                    cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+
+                    cookiesToSet.forEach(({ name, value }) =>
+                        response.cookies.set(name, value)
                     )
                 },
             },
