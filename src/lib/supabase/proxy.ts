@@ -78,9 +78,12 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
     response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
 
     // Basic CSP (More restrictive can be added later as needed)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://flmahiodeflpxlobvdal.supabase.co';
+    const supabaseHost = new URL(supabaseUrl).hostname;
+    
     response.headers.set(
         'Content-Security-Policy',
-        "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://*.supabase.co; font-src 'self' data:;" + "connect-src 'self' https://flmahiodeflpxlobvdal.supabase.co wss://flmahiodeflpxlobvdal.supabase.co;"
+        `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://*.supabase.co; font-src 'self' data:; connect-src 'self' https://${supabaseHost} wss://${supabaseHost};`
     )
 
     return response
