@@ -3,6 +3,7 @@
 import { createAdminClient } from '@/lib/supabase/admin'
 import { revalidatePath } from 'next/cache'
 import { adminUserSchema } from '@/lib/validations'
+import { Vendor } from '@/types/models'
 
 export async function createManagedUser(prevState: any, formData: FormData): Promise<{ error?: string; success?: boolean }> {
     const rawData = {
@@ -57,5 +58,28 @@ export async function createManagedUser(prevState: any, formData: FormData): Pro
     }
 
     revalidatePath('/admin/users')
+    return { success: true }
+}
+
+export async function updateVendorProfile(vendorId: string, data: Partial<Vendor>): Promise<{ error?: string; success?: boolean }> {
+    const supabase = createAdminClient()
+
+    const { error } = await supabase
+        .from('profiles')
+        .update({
+            store_name: data.storeName,
+            slug: data.slug,
+            whatsapp_number: data.whatsappNumber,
+            is_active: data.isActive,
+            is_admin: data.isAdmin
+        })
+        .eq('id', vendorId)
+
+    if (error) {
+        return { error: error.message }
+    }
+
+    revalidatePath('/admin/users')
+    revalidatePath('/admin/vendors')
     return { success: true }
 }

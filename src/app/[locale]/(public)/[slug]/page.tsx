@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { SupabaseVendorRepository } from '@/repositories/supabase/SupabaseVendorRepository'
 import { SupabaseProductRepository } from '@/repositories/supabase/SupabaseProductRepository'
 import { notFound } from 'next/navigation'
+import { Store } from 'lucide-react'
 import StorefrontFeed from './StorefrontFeed'
 
 import type { Metadata } from 'next'
@@ -55,6 +56,22 @@ export default async function StorefrontPage({ params }: PageProps) {
 
     if (!vendor) {
         notFound()
+    }
+
+    if (!vendor.isActive) {
+        return (
+            <main className="min-h-screen bg-[#FDFCF8] dark:bg-[#050505] flex items-center justify-center p-6 text-center">
+                <div className="max-w-md space-y-6">
+                    <div className="w-24 h-24 bg-zinc-100 dark:bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <Store className="w-10 h-10 text-zinc-400" />
+                    </div>
+                    <h1 className="text-4xl font-serif font-black italic text-zinc-950 dark:text-white">Boutique en pause</h1>
+                    <p className="text-zinc-500 font-medium">
+                        Cette boutique n'est pas disponible pour le moment. Revenez plus tard !
+                    </p>
+                </div>
+            </main>
+        )
     }
 
     const products = await productRepo.getPublicByVendorSlug(slug)

@@ -47,6 +47,7 @@ export class SupabaseVendorRepository implements IVendorRepository {
                 slug: item.slug,
                 whatsapp_number: item.whatsappNumber,
                 is_admin: item.isAdmin,
+                is_active: item.isActive,
             })
             .select()
             .single()
@@ -63,6 +64,7 @@ export class SupabaseVendorRepository implements IVendorRepository {
                 slug: item.slug,
                 whatsapp_number: item.whatsappNumber,
                 is_admin: item.isAdmin,
+                is_active: item.isActive,
             })
             .eq('id', id)
             .select()

@@ -11,6 +11,7 @@ export const mapProfileToVendor = (profile: DBProfile): Vendor => ({
     slug: profile.slug,
     whatsappNumber: profile.whatsapp_number,
     isAdmin: profile.is_admin,
+    isActive: profile.is_active,
     createdAt: profile.created_at,
 })
 

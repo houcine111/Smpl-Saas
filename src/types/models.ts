@@ -8,6 +8,7 @@ export interface Vendor {
     slug: string | null
     whatsappNumber: string | null
     isAdmin: boolean
+    isActive: boolean
     createdAt: string
 }
 

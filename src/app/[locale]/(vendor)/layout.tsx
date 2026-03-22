@@ -16,12 +16,38 @@ export default async function DashboardLayout({
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
-    // Fetch profile for slug
+    // Fetch profile for slug and active status
     const { data: profile } = await supabase
         .from('profiles')
-        .select('slug, store_name')
+        .select('slug, store_name, is_active')
         .eq('id', user?.id)
         .single()
+
+    if (profile && !profile.is_active) {
+        return (
+            <div className="min-h-screen bg-background flex items-center justify-center p-6">
+                <div className="max-w-md w-full bg-card border border-border rounded-3xl p-10 text-center space-y-6 shadow-2xl shadow-black/5">
+                    <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto">
+                        <ShoppingBag className="w-10 h-10 text-red-500" />
+                    </div>
+                    <div className="space-y-2">
+                        <h1 className="text-2xl font-serif font-black italic tracking-tight">Compte Inactif</h1>
+                        <p className="text-muted-foreground font-medium">
+                            Votre compte vendeur est actuellement suspendu. Veuillez contacter l'administrateur pour régulariser votre situation.
+                        </p>
+                    </div>
+                    <form action={signOut}>
+                        <button
+                            type="submit"
+                            className="w-full py-4 rounded-2xl bg-foreground text-background font-black uppercase tracking-widest text-xs hover:opacity-90 transition-all"
+                        >
+                            Se déconnecter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen bg-background pb-20 md:pb-0 md:pl-64">

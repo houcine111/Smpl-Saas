@@ -107,6 +107,7 @@ export interface Database {
                     created_at: string
                     id: string
                     is_admin: boolean
+                    is_active: boolean
                     slug: string | null
                     store_name: string | null
                     whatsapp_number: string | null
@@ -115,6 +116,7 @@ export interface Database {
                     created_at?: string
                     id: string
                     is_admin?: boolean
+                    is_active?: boolean
                     slug?: string | null
                     store_name?: string | null
                     whatsapp_number?: string | null
@@ -123,6 +125,7 @@ export interface Database {
                     created_at?: string
                     id?: string
                     is_admin?: boolean
+                    is_active?: boolean
                     slug?: string | null
                     store_name?: string | null
                     whatsapp_number?: string | null

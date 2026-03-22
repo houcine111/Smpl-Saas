@@ -7,17 +7,8 @@
   "executionArgs": {
     "projectName": "mini-shop",
     "projectPath": "c:\\Users\\aitbe\\OneDrive\\Bureau\\Saas\\mini-shop",
-    "testIds": [
-      "TC016",
-      "TC017",
-      "TC018",
-      "TC019",
-      "TC020",
-      "TC021",
-      "TC022",
-      "TC023"
-    ],
-    "additionalInstruction": "Admin credentials: email=aitbenalihoucine14@gmail.com, password=houcine houcine. The /admin/create page now exists. The form has fields: Email, Password, Store Name, Slug, WhatsApp, and an 'Is admin' checkbox. The submit button text is 'Create' in English.",
+    "testIds": [],
+    "additionalInstruction": "Focus on testing the new 'Active' status toggle in the Admin User/Vendor table and verifying storefront visibility for inactive vendors. Also check that admins can edit vendor details.",
     "serverMode": "development",
     "envs": {
       "API_KEY": "sk-user-uNsRPAE-meiCI9td1D5qPMQUKPDzeo6Q3mk951LeEY4tUWcYR7xXC3H7khgwKSxmj2yPtg3zmD9Wa5mzbN0X_nlVtcYmqgf1ioiaxr_6QMQuYAmnZ8DKmEWZoZAliLCxtFo"

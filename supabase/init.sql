@@ -9,6 +9,7 @@ CREATE TABLE public.profiles (
     slug TEXT UNIQUE,
     whatsapp_number TEXT UNIQUE,
     is_admin BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 

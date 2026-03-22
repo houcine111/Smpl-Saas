@@ -23,8 +23,12 @@ export default function Home() {
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full border border-border bg-card">
               <Image src="/Smpl.jpg" alt="Smpl Logo" fill className="object-cover" />
             </div>
-            <span className="font-black text-lg tracking-tighter uppercase sm:hidden">Smpl.</span>
           </Link>
+
+          {/* Mobile ThemeToggle (Center) */}
+          <div className="md:hidden absolute left-1/2 -translate-x-1/2">
+            <ThemeToggle />
+          </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
@@ -33,7 +37,9 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
             <Link href="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">
                 {commonT('connexion')}

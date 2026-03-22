@@ -1,8 +1,291 @@
 [
   {
     "id": "TC001",
+    "title": "Register a new vendor successfully and land on dashboard",
+    "description": "Verifies a vendor can register with valid email/password, shop name, unique slug, and valid international WhatsApp number and is redirected to the dashboard.",
+    "category": "Vendor Registration",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"newvendor@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPass123!\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Atlas Boutique\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"atlas-boutique-2026\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+212612345678\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "WhatsApp number invalid format blocks registration",
+    "description": "Verifies invalid WhatsApp number format shows a validation error and does not redirect to the dashboard.",
+    "category": "Vendor Registration",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"badwhatsapp@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPass123!\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Marrakech Finds\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"marrakech-finds-2026\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"0612345678\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"WhatsApp\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Required fields validation when submitting empty form",
+    "description": "Verifies the registration form enforces required fields and does not proceed when submitted empty.",
+    "category": "Vendor Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"password\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"shop\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"slug\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"WhatsApp\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Invalid email format blocks registration",
+    "description": "Verifies an invalid email address format triggers validation and prevents redirect to dashboard.",
+    "category": "Vendor Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-an-email\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPass123!\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Rabat Picks\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"rabat-picks-2026\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+212622222222\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Weak password blocks registration",
+    "description": "Verifies a too-short or weak password triggers an error and does not redirect to dashboard.",
+    "category": "Vendor Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"weakpass@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"123\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Fez Crafts\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"fez-crafts-2026\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+212633333333\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"password\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Slug format validation prevents invalid characters",
+    "description": "Verifies the slug field rejects invalid characters and prevents successful registration.",
+    "category": "Vendor Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"badslug@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPass123!\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Tangier Trends\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Tangier Trends!!!\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+212644444444\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"slug\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Successful registration shows confirmation messaging (if present)",
+    "description": "Verifies that after successful registration, the UI shows a visible success confirmation before or during redirect to dashboard.",
+    "category": "Vendor Registration",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"confirmmsg@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPass123!\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Sahara Styles\" into the shop name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"sahara-styles-2026\" into the slug field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"+212655555555\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"success\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
     "title": "Create a new visible product with multiple image URLs (up to 5)",
-    "description": "Verifies a vendor can create a product with multiple image URLs, enable visibility, and see it listed after saving.",
+    "description": "Verifies a vendor can add a product with multiple image URLs, enable visibility, save, and see it appear in the product list.",
     "category": "Product Management (CRUD, Multi-image, Soft Delete)",
     "priority": "High",
     "steps": [
@@ -12,11 +295,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -28,7 +311,7 @@
       },
       {
         "type": "action",
-        "description": "Click on \"Products\" in the dashboard navigation"
+        "description": "Click \"Products\" in the dashboard navigation"
       },
       {
         "type": "assertion",
@@ -39,16 +322,20 @@
         "description": "Click the \"Add Product\" button"
       },
       {
-        "type": "action",
-        "description": "Type \"Argan Oil Soap\" into the \"Name\" field"
+        "type": "assertion",
+        "description": "Verify text \"Add Product\" is visible"
       },
       {
         "type": "action",
-        "description": "Type \"35\" into the \"Price\" field"
+        "description": "Type \"Argan Oil - 100ml\" into the product name field"
       },
       {
         "type": "action",
-        "description": "Type \"12\" into the \"Stock\" field"
+        "description": "Type \"79\" into the price field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"12\" into the stock field"
       },
       {
         "type": "action",
@@ -72,7 +359,7 @@
       },
       {
         "type": "action",
-        "description": "Click the \"Visibility\" toggle to set it ON"
+        "description": "Click the visibility toggle to set the product to visible"
       },
       {
         "type": "action",
@@ -80,14 +367,14 @@
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Argan Oil Soap\" is visible"
+        "description": "Verify text \"Argan Oil - 100ml\" is visible"
       }
     ]
   },
   {
-    "id": "TC002",
+    "id": "TC009",
     "title": "Create a product with only one image URL",
-    "description": "Verifies a vendor can create a product with a single image URL and see it listed after saving.",
+    "description": "Verifies a vendor can create a product using just one image URL and it appears in the product list.",
     "category": "Product Management (CRUD, Multi-image, Soft Delete)",
     "priority": "Medium",
     "steps": [
@@ -97,72 +384,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
-      },
-      {
-        "type": "action",
-        "description": "Click on \"Products\" in the dashboard navigation"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Add Product\" button"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Ceramic Tagine\" into the \"Name\" field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"199\" into the \"Price\" field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"5\" into the \"Stock\" field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"https://example.com/tagine.jpg\" into the first image URL field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Save Product\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Ceramic Tagine\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC003",
-    "title": "Validation: Name is required when saving a new product",
-    "description": "Verifies the product form prevents saving when the Name field is blank and shows a visible validation message.",
-    "category": "Product Management (CRUD, Multi-image, Soft Delete)",
-    "priority": "High",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -174,7 +400,7 @@
       },
       {
         "type": "action",
-        "description": "Click on \"Products\" in the dashboard navigation"
+        "description": "Click \"Products\" in the dashboard navigation"
       },
       {
         "type": "assertion",
@@ -186,15 +412,84 @@
       },
       {
         "type": "action",
-        "description": "Type \"49\" into the \"Price\" field"
+        "description": "Type \"Saffron Threads\" into the product name field"
       },
       {
         "type": "action",
-        "description": "Type \"10\" into the \"Stock\" field"
+        "description": "Type \"149\" into the price field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/onlyimage.jpg\" into the first image URL field"
+        "description": "Type \"5\" into the stock field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/saffron.jpg\" into the first image URL field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save Product\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Saffron Threads\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Validation: cannot save product when Name is blank",
+    "description": "Verifies the product form shows a required-name validation error and does not create the product when name is missing.",
+    "category": "Product Management (CRUD, Multi-image, Soft Delete)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Products\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/products\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Product\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"\" into the product name field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"59\" into the price field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"10\" into the stock field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/blank-name.jpg\" into the first image URL field"
       },
       {
         "type": "action",
@@ -207,11 +502,11 @@
     ]
   },
   {
-    "id": "TC004",
-    "title": "Edge case: Attempt to exceed the 5-image limit is blocked or ignored",
-    "description": "Verifies the UI enforces the 5-image maximum by preventing entry of a 6th image URL or showing an error message.",
+    "id": "TC011",
+    "title": "Validation: prevent adding more than 5 image URLs",
+    "description": "Verifies the UI prevents a vendor from adding a 6th image URL (or shows an error) when the maximum of 5 images is reached.",
     "category": "Product Management (CRUD, Multi-image, Soft Delete)",
-    "priority": "Medium",
+    "priority": "Low",
     "steps": [
       {
         "type": "action",
@@ -219,11 +514,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -235,7 +530,11 @@
       },
       {
         "type": "action",
-        "description": "Click on \"Products\" in the dashboard navigation"
+        "description": "Click \"Products\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/products\""
       },
       {
         "type": "action",
@@ -243,46 +542,50 @@
       },
       {
         "type": "action",
-        "description": "Type \"Leather Wallet\" into the \"Name\" field"
+        "description": "Type \"Test Image Limit\" into the product name field"
       },
       {
         "type": "action",
-        "description": "Type \"120\" into the \"Price\" field"
+        "description": "Type \"10\" into the price field"
       },
       {
         "type": "action",
-        "description": "Type \"7\" into the \"Stock\" field"
+        "description": "Type \"1\" into the stock field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/w1.jpg\" into the first image URL field"
+        "description": "Type \"https://example.com/1.jpg\" into the first image URL field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/w2.jpg\" into the second image URL field"
+        "description": "Type \"https://example.com/2.jpg\" into the second image URL field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/w3.jpg\" into the third image URL field"
+        "description": "Type \"https://example.com/3.jpg\" into the third image URL field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/w4.jpg\" into the fourth image URL field"
+        "description": "Type \"https://example.com/4.jpg\" into the fourth image URL field"
       },
       {
         "type": "action",
-        "description": "Type \"https://example.com/w5.jpg\" into the fifth image URL field"
+        "description": "Type \"https://example.com/5.jpg\" into the fifth image URL field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Add Image\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Add another image\" is not visible"
+        "description": "Verify text \"Maximum 5 images\" is visible"
       }
     ]
   },
   {
-    "id": "TC005",
-    "title": "Vendor can navigate from Dashboard Home to Products and Orders using bottom tabs",
-    "description": "Verifies the fixed bottom tab bar is present on dashboard and allows navigation to Products then Orders pages.",
+    "id": "TC012",
+    "title": "Vendor can switch between Dashboard tabs: Home → Produits → Commandes",
+    "description": "Verifies the bottom tab bar is visible on the vendor dashboard and tab taps navigate to Products and Orders pages.",
     "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
     "priority": "High",
     "steps": [
@@ -292,15 +595,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "assertion",
@@ -312,7 +615,7 @@
       },
       {
         "type": "action",
-        "description": "Click the \"Produits\" tab in the bottom navigation"
+        "description": "Click the \"Produits\" tab"
       },
       {
         "type": "assertion",
@@ -321,9 +624,9 @@
     ]
   },
   {
-    "id": "TC006",
-    "title": "Vendor can navigate from Products to Orders using bottom tabs",
-    "description": "Verifies bottom tab navigation works when starting from the Products page and moving to Orders.",
+    "id": "TC013",
+    "title": "Vendor can navigate from Products tab to Orders tab",
+    "description": "Verifies that tapping the Commandes tab from within Products takes the vendor to the Orders page.",
     "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
     "priority": "High",
     "steps": [
@@ -333,23 +636,19 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "action",
-        "description": "Click the \"Produits\" tab in the bottom navigation"
+        "description": "Click the \"Produits\" tab"
       },
       {
         "type": "assertion",
@@ -357,14 +656,18 @@
       },
       {
         "type": "action",
-        "description": "Click the \"Commandes\" tab in the bottom navigation"
+        "description": "Click the \"Commandes\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/orders\""
       }
     ]
   },
   {
-    "id": "TC007",
-    "title": "Vendor can navigate from Orders to Settings using bottom tabs",
-    "description": "Verifies vendor can reach Settings from Orders using the fixed bottom navigation.",
+    "id": "TC014",
+    "title": "Vendor can navigate to Settings tab (Paramètres) from Orders",
+    "description": "Verifies that tapping the Paramètres tab navigates to the Settings page from another dashboard section.",
     "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
     "priority": "High",
     "steps": [
@@ -374,23 +677,19 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "action",
-        "description": "Click the \"Commandes\" tab in the bottom navigation"
+        "description": "Click the \"Commandes\" tab"
       },
       {
         "type": "assertion",
@@ -398,55 +697,18 @@
       },
       {
         "type": "action",
-        "description": "Click the \"Paramètres\" tab in the bottom navigation"
-      }
-    ]
-  },
-  {
-    "id": "TC008",
-    "title": "Vendor can return to Dashboard Home using the Home tab from any dashboard section",
-    "description": "Verifies the Home tab brings the vendor back to /dashboard after navigating away.",
-    "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Paramètres\" tab in the bottom navigation"
+        "description": "Click the \"Paramètres\" tab"
       },
       {
         "type": "assertion",
         "description": "Verify URL contains \"/dashboard/settings\""
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Home\" tab in the bottom navigation"
       }
     ]
   },
   {
-    "id": "TC009",
-    "title": "Bottom tab bar is visible and includes all expected tabs on Dashboard Home",
-    "description": "Verifies the dashboard home shows a fixed bottom tab bar with the expected labels.",
+    "id": "TC015",
+    "title": "Vendor can return to Home tab from another section",
+    "description": "Verifies that the Home tab returns the user to the dashboard home page after navigating elsewhere.",
     "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
     "priority": "Medium",
     "steps": [
@@ -456,15 +718,56 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
+        "description": "Click the \"Se connecter\" / \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Produits\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/products\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Home\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Bottom tab bar is visible on Dashboard Home",
+    "description": "Verifies the vendor dashboard home shows the fixed bottom navigation with all expected tabs.",
+    "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "assertion",
@@ -485,9 +788,9 @@
     ]
   },
   {
-    "id": "TC010",
-    "title": "Bottom tab bar includes Settings tab label and it is visible on Dashboard Home",
-    "description": "Verifies the Settings (Paramètres) tab label is present in the bottom navigation on dashboard home.",
+    "id": "TC017",
+    "title": "Bottom tab bar is visible on Products page",
+    "description": "Verifies the vendor products page still shows the fixed bottom navigation for quick switching.",
     "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
     "priority": "Medium",
     "steps": [
@@ -497,40 +800,40 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Paramètres\" is visible"
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "action",
-        "description": "Click the \"Paramètres\" tab in the bottom navigation"
+        "description": "Click the \"Produits\" tab"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
+        "description": "Verify URL contains \"/dashboard/products\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Home\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Commandes\" is visible"
       }
     ]
   },
   {
-    "id": "TC011",
-    "title": "View orders list from Vendor Dashboard Orders page",
-    "description": "Verifies a vendor can open the Orders page and see the orders list UI.",
-    "category": "Order Management (Vendor)",
-    "priority": "High",
+    "id": "TC018",
+    "title": "Bottom tab bar is visible on Orders page",
+    "description": "Verifies the vendor orders page still shows the fixed bottom navigation for quick switching.",
+    "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
+    "priority": "Medium",
     "steps": [
       {
         "type": "action",
@@ -538,23 +841,19 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
+        "description": "Click the \"Se connecter\" / \"Login\" button"
       },
       {
         "type": "action",
-        "description": "Click \"Orders\" in the dashboard navigation"
+        "description": "Click the \"Commandes\" tab"
       },
       {
         "type": "assertion",
@@ -562,14 +861,59 @@
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Orders list\" is visible"
+        "description": "Verify text \"Home\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Paramètres\" is visible"
       }
     ]
   },
   {
-    "id": "TC012",
-    "title": "Open an order and view order details",
-    "description": "Verifies a vendor can open an order from the list and see key details (customer and product info).",
+    "id": "TC019",
+    "title": "Bottom tab bar is visible on Settings page",
+    "description": "Verifies the vendor settings page still shows the fixed bottom navigation for quick switching.",
+    "category": "Vendor Dashboard Navigation (Home, Products, Orders, Settings)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Se connecter\" / \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Paramètres\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/settings\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Home\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Produits\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Vendor can view the orders list in Order Management",
+    "description": "Verifies that an authenticated vendor can reach the Orders page and see an orders list UI.",
     "category": "Order Management (Vendor)",
     "priority": "High",
     "steps": [
@@ -579,38 +923,38 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
         "description": "Click the \"Log in\" button"
       },
       {
-        "type": "action",
-        "description": "Click \"Orders\" in the dashboard navigation"
-      },
-      {
         "type": "assertion",
-        "description": "Verify element \"Orders list\" is visible"
+        "description": "Verify URL contains \"/dashboard\""
       },
       {
         "type": "action",
-        "description": "Click on the first order in the list"
+        "description": "Click on \"Orders\" in the dashboard navigation"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Order details\" is visible"
+        "description": "Verify URL contains \"/dashboard/orders\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Orders\" is visible"
       }
     ]
   },
   {
-    "id": "TC013",
-    "title": "Confirm an order from the order details page",
-    "description": "Verifies a vendor can confirm a pending order and the status updates to CONFIRMED.",
+    "id": "TC021",
+    "title": "Vendor can open an order and view key order details",
+    "description": "Verifies that selecting an order shows the detail view including customer and product information.",
     "category": "Order Management (Vendor)",
     "priority": "High",
     "steps": [
@@ -620,11 +964,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -632,11 +976,200 @@
       },
       {
         "type": "action",
-        "description": "Click \"Orders\" in the dashboard navigation"
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/orders\""
       },
       {
         "type": "action",
-        "description": "Click on the first order in the list"
+        "description": "Click on the first order in the orders list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Customer\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Order detail view displays customer name",
+    "description": "Verifies the order details screen contains a visible customer name value.",
+    "category": "Order Management (Vendor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first order in the orders list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Customer name\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Order detail view displays customer phone",
+    "description": "Verifies the order details screen contains a visible customer phone field/value label.",
+    "category": "Order Management (Vendor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first order in the orders list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Phone\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Order detail view displays customer city",
+    "description": "Verifies the order details screen contains a visible city field/value label.",
+    "category": "Order Management (Vendor)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first order in the orders list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"City\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Order detail view displays ordered product information",
+    "description": "Verifies the order details screen contains visible product information for the order.",
+    "category": "Order Management (Vendor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first order in the orders list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Product\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Vendor confirms an order and sees status updated to CONFIRMED",
+    "description": "Verifies that confirming an order updates the visible status to CONFIRMED.",
+    "category": "Order Management (Vendor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Orders\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first order in the orders list"
       },
       {
         "type": "action",
@@ -649,91 +1182,9 @@
     ]
   },
   {
-    "id": "TC014",
-    "title": "Verify order details show customer name, phone, city, and product",
-    "description": "Verifies the order details view exposes the expected customer and product fields as visible labels/values.",
-    "category": "Order Management (Vendor)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Orders\" in the dashboard navigation"
-      },
-      {
-        "type": "action",
-        "description": "Click on the first order in the list"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Customer\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Phone\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC015",
-    "title": "Confirm button is not shown for an already confirmed order (if present)",
-    "description": "Verifies that when an order is already CONFIRMED, the UI does not present a Confirm action for it.",
-    "category": "Order Management (Vendor)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Click \"Orders\" in the dashboard navigation"
-      },
-      {
-        "type": "action",
-        "description": "Click on an order that shows status \"CONFIRMED\" in the list"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"CONFIRMED\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Confirm\" is not visible"
-      }
-    ]
-  },
-  {
-    "id": "TC016",
-    "title": "Admin can view vendor list and open the Create User page",
-    "description": "Verifies an authenticated admin can access the admin list and navigate to the user creation form.",
+    "id": "TC027",
+    "title": "Admin can view the platform admin vendor list",
+    "description": "Verifies an authenticated user can access the /admin page and see the vendor list and moderation controls.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "High",
     "steps": [
@@ -743,19 +1194,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -763,18 +1210,22 @@
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Admin\" is visible"
+        "description": "Verify page title contains \"Admin\""
       },
       {
-        "type": "action",
-        "description": "Click the \"Create\" button"
+        "type": "assertion",
+        "description": "Verify text \"Vendors\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Create\" is visible"
       }
     ]
   },
   {
-    "id": "TC017",
-    "title": "Admin can create a Vendor user and see it appear in the admin list",
-    "description": "Verifies the end-to-end flow to create a vendor user and confirm it is visible in the vendor list after creation.",
+    "id": "TC028",
+    "title": "Admin can open the Create User page from the Admin list",
+    "description": "Verifies the Create action from the admin list navigates to the user creation form.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "High",
     "steps": [
@@ -784,15 +1235,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -807,15 +1258,15 @@
         "description": "Verify URL contains \"/admin/create\""
       },
       {
-        "type": "action",
-        "description": "Select \"Vendor\" from the role/type dropdown"
+        "type": "assertion",
+        "description": "Verify text \"Create\" is visible"
       }
     ]
   },
   {
-    "id": "TC018",
-    "title": "Admin can complete Vendor user creation successfully",
-    "description": "Verifies the create form can be filled for a Vendor and submitted to show a visible success state or return to the vendor list.",
+    "id": "TC029",
+    "title": "Admin creates a new Vendor user from /admin/create",
+    "description": "Verifies an admin can submit the creation form for a Vendor user and return to the vendor list.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "High",
     "steps": [
@@ -825,15 +1276,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -841,22 +1292,22 @@
       },
       {
         "type": "action",
-        "description": "Select \"Vendor\" from the role/type dropdown"
-      },
-      {
-        "type": "action",
-        "description": "Type \"e2e.vendor+1@example.com\" into the email field"
+        "description": "Select \"Vendor\" from the user type dropdown"
       },
       {
         "type": "action",
         "description": "Click the \"Create\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
       }
     ]
   },
   {
-    "id": "TC019",
-    "title": "Admin can create an Admin user with is_admin enabled",
-    "description": "Verifies creating an admin user by selecting Admin role and enabling is_admin, then confirming a success state.",
+    "id": "TC030",
+    "title": "Admin creates a new Admin user (is_admin enabled) from /admin/create",
+    "description": "Verifies an admin can create an admin-level user by selecting Admin and enabling is_admin before submitting.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "High",
     "steps": [
@@ -866,15 +1317,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -882,22 +1333,26 @@
       },
       {
         "type": "action",
-        "description": "Select \"Admin\" from the role/type dropdown"
+        "description": "Select \"Admin\" from the user type dropdown"
       },
       {
         "type": "action",
-        "description": "Click the \"Is admin\" checkbox/toggle to enable it"
+        "description": "Click the \"is_admin\" toggle or checkbox"
       },
       {
         "type": "action",
         "description": "Click the \"Create\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
       }
     ]
   },
   {
-    "id": "TC020",
-    "title": "Create User form shows validation when required fields are missing",
-    "description": "Verifies the form blocks submission and shows visible validation messaging when submitted empty or incomplete.",
+    "id": "TC031",
+    "title": "Validation: Create user form blocks submission when required fields are empty",
+    "description": "Verifies the creation form shows visible validation feedback when attempting to create a user without required inputs.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "Medium",
     "steps": [
@@ -907,15 +1362,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -936,50 +1391,9 @@
     ]
   },
   {
-    "id": "TC021",
-    "title": "Create User form rejects an invalid email format",
-    "description": "Verifies a visibly invalid email address produces a visible validation error and prevents successful creation.",
-    "category": "Platform Admin (Vendor Moderation & User Creation)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Sign in\" button"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /admin/create"
-      },
-      {
-        "type": "action",
-        "description": "Type \"not-an-email\" into the email field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Create\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"invalid\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC022",
-    "title": "Non-admin user cannot access /admin and is denied or redirected",
-    "description": "Verifies an authenticated non-admin cannot view the platform admin page and is either redirected or sees an access denied message.",
+    "id": "TC032",
+    "title": "Non-admin user is denied access to /admin",
+    "description": "Verifies an authenticated but non-admin user cannot access the admin page and is redirected or shown an access denied message.",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "High",
     "steps": [
@@ -989,15 +1403,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -1014,9 +1428,9 @@
     ]
   },
   {
-    "id": "TC023",
-    "title": "Admin can see moderation controls on the vendor list",
-    "description": "Verifies that moderation-related controls are visible on the admin vendor list page for an admin user.",
+    "id": "TC033",
+    "title": "Admin list page shows moderation controls on vendor rows",
+    "description": "Verifies the admin vendor list includes visible moderation controls that an admin can interact with (without requiring data changes).",
     "category": "Platform Admin (Vendor Moderation & User Creation)",
     "priority": "Medium",
     "steps": [
@@ -1026,15 +1440,15 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenlihoucine14@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"houcine houcine\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
-        "description": "Click the \"Sign in\" button"
+        "description": "Click the \"Log in\" button"
       },
       {
         "type": "action",
@@ -1042,22 +1456,22 @@
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Vendors\" is visible"
+        "description": "Verify element \"Moderation\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Moderation\" is visible"
+        "description": "Verify element \"Approve\" is visible"
       },
       {
         "type": "assertion",
-        "description": "Verify element \"Create\" is visible"
+        "description": "Verify element \"Reject\" is visible"
       }
     ]
   },
   {
-    "id": "TC024",
+    "id": "TC034",
     "title": "Update WhatsApp number successfully and see confirmation",
-    "description": "Verifies a vendor can update their WhatsApp number in international format and receives a visible success confirmation with updated value shown.",
+    "description": "Verifies a vendor can update their WhatsApp number in international format and sees a visible success confirmation with the updated value reflected.",
     "category": "Settings (Vendor Profile & WhatsApp Number)",
     "priority": "High",
     "steps": [
@@ -1067,64 +1481,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Log in\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard\""
-      },
-      {
-        "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
-      },
-      {
-        "type": "assertion",
-        "description": "Verify element \"Profile\" form is visible"
-      },
-      {
-        "type": "action",
-        "description": "Fill \"+212600000000\" into the \"WhatsApp number\" field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Save\" button"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Success\" is visible"
-      }
-    ]
-  },
-  {
-    "id": "TC025",
-    "title": "WhatsApp number update persists after page refresh",
-    "description": "Verifies the updated WhatsApp number remains visible after reloading the Settings page.",
-    "category": "Settings (Vendor Profile & WhatsApp Number)",
-    "priority": "Medium",
-    "steps": [
-      {
-        "type": "action",
-        "description": "Navigate to /login"
-      },
-      {
-        "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
-      },
-      {
-        "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -1136,15 +1497,19 @@
       },
       {
         "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
+        "description": "Click the \"Settings\" navigation item"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
+        "description": "Verify URL contains \"/dashboard/settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"WhatsApp\" is visible"
       },
       {
         "type": "action",
-        "description": "Fill \"+212611111111\" into the \"WhatsApp number\" field"
+        "description": "Fill \"+212600000000\" into the WhatsApp number field"
       },
       {
         "type": "action",
@@ -1152,22 +1517,14 @@
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Success\" is visible"
-      },
-      {
-        "type": "action",
-        "description": "Navigate to /dashboard/settings"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"+212611111111\" is visible"
+        "description": "Verify text \"Saved\" is visible"
       }
     ]
   },
   {
-    "id": "TC026",
-    "title": "Attempt to change slug to an already used slug shows validation error",
-    "description": "Verifies saving a slug that is already taken is blocked and a visible validation error is shown.",
+    "id": "TC035",
+    "title": "Slug conflict shows validation error and does not apply change",
+    "description": "Verifies that attempting to save an already-used slug displays a visible validation error and the change is not applied.",
     "category": "Settings (Vendor Profile & WhatsApp Number)",
     "priority": "High",
     "steps": [
@@ -1177,11 +1534,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -1193,15 +1550,19 @@
       },
       {
         "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
+        "description": "Click the \"Settings\" navigation item"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
+        "description": "Verify URL contains \"/dashboard/settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Slug\" is visible"
       },
       {
         "type": "action",
-        "description": "Fill \"test\" into the \"Slug\" field"
+        "description": "Fill \"test\" into the slug field"
       },
       {
         "type": "action",
@@ -1214,9 +1575,9 @@
     ]
   },
   {
-    "id": "TC027",
-    "title": "Reject invalid WhatsApp number format (missing +country code)",
-    "description": "Verifies the Settings form shows a visible validation error when WhatsApp number is not in international format.",
+    "id": "TC036",
+    "title": "Settings page loads profile form fields for vendor",
+    "description": "Verifies the Settings page loads and shows the vendor profile form elements needed to edit profile details.",
     "category": "Settings (Vendor Profile & WhatsApp Number)",
     "priority": "Medium",
     "steps": [
@@ -1226,11 +1587,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -1242,32 +1603,32 @@
       },
       {
         "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
+        "description": "Click the \"Settings\" navigation item"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
-      },
-      {
-        "type": "action",
-        "description": "Fill \"0600000000\" into the \"WhatsApp number\" field"
-      },
-      {
-        "type": "action",
-        "description": "Click the \"Save\" button"
+        "description": "Verify URL contains \"/dashboard/settings"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"international\" is visible"
+        "description": "Verify text \"Profile\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"WhatsApp\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Slug\" is visible"
       }
     ]
   },
   {
-    "id": "TC028",
-    "title": "Reject empty WhatsApp number if required",
-    "description": "Verifies the Settings form blocks saving when WhatsApp number is cleared (if the field is required) and shows a visible error.",
+    "id": "TC037",
+    "title": "WhatsApp number rejects invalid format and shows validation error",
+    "description": "Verifies the Settings form blocks saving an invalid WhatsApp number and shows a visible validation message.",
     "category": "Settings (Vendor Profile & WhatsApp Number)",
-    "priority": "Low",
+    "priority": "High",
     "steps": [
       {
         "type": "action",
@@ -1275,11 +1636,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -1291,15 +1652,64 @@
       },
       {
         "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
+        "description": "Click the \"Settings\" navigation item"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
+        "description": "Verify URL contains \"/dashboard/settings"
       },
       {
         "type": "action",
-        "description": "Fill \"\" into the \"WhatsApp number\" field"
+        "description": "Fill \"0600000000\" into the WhatsApp number field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC038",
+    "title": "Slug field rejects empty value and shows required validation",
+    "description": "Verifies the vendor cannot save settings with an empty slug and sees a visible required/invalid message.",
+    "category": "Settings (Vendor Profile & WhatsApp Number)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Settings\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/settings"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"\" into the slug field"
       },
       {
         "type": "action",
@@ -1312,9 +1722,9 @@
     ]
   },
   {
-    "id": "TC029",
-    "title": "Save button provides visible in-progress feedback during update",
-    "description": "Verifies a visible saving state appears after clicking Save and resolves to a success message when the update completes.",
+    "id": "TC039",
+    "title": "Cancel/discard changes keeps saved profile values unchanged (if available)",
+    "description": "Verifies that using a visible cancel/discard action (if present) does not apply edits to the profile form values.",
     "category": "Settings (Vendor Profile & WhatsApp Number)",
     "priority": "Low",
     "steps": [
@@ -1324,11 +1734,11 @@
       },
       {
         "type": "action",
-        "description": "Type \"aitbenalihoucine18@gmail.com\" into the email/username field"
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
       },
       {
         "type": "action",
-        "description": "Type \"Houcine18\" into the password field"
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
       },
       {
         "type": "action",
@@ -1340,27 +1750,23 @@
       },
       {
         "type": "action",
-        "description": "Click \"Settings\" in the dashboard navigation"
+        "description": "Click the \"Settings\" navigation item"
       },
       {
         "type": "assertion",
-        "description": "Verify URL contains \"/dashboard/settings\""
+        "description": "Verify URL contains \"/dashboard/settings"
       },
       {
         "type": "action",
-        "description": "Fill \"+212622222222\" into the \"WhatsApp number\" field"
+        "description": "Fill \"+212611111111\" into the WhatsApp number field"
       },
       {
         "type": "action",
-        "description": "Click the \"Save\" button"
+        "description": "Click the \"Cancel\" button"
       },
       {
         "type": "assertion",
-        "description": "Verify text \"Saving\" is visible"
-      },
-      {
-        "type": "assertion",
-        "description": "Verify text \"Success\" is visible"
+        "description": "Verify text \"+212611111111\" is not visible"
       }
     ]
   }
