@@ -2,7 +2,8 @@
 
 import { useActionState } from 'react'
 import { createManagedUser } from '@/app/[locale]/admin-actions'
-import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Loader2, Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 type ActionState = {
@@ -18,6 +19,7 @@ const initialState: ActionState = {
 export function CreateUserForm() {
     const t = useTranslations('Admin.create.form')
     const [state, formAction, isPending] = useActionState(createManagedUser, initialState)
+    const [showPassword, setShowPassword] = useState(false)
 
     return (
         <form action={formAction} className="p-8 space-y-6">
@@ -49,14 +51,23 @@ export function CreateUserForm() {
                 </div>
                 <div className="space-y-2">
                     <label className="text-sm font-bold text-zinc-700">{t('passwordLabel')}</label>
-                    <input
-                        name="password"
-                        type="password"
-                        required
-                        disabled={isPending}
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:ring-2 focus:ring-zinc-900 outline-none transition-all disabled:opacity-50"
-                        placeholder="••••••••"
-                    />
+                    <div className="relative">
+                        <input
+                            name="password"
+                            type={showPassword ? "text" : "password"}
+                            required
+                            disabled={isPending}
+                            className="w-full px-4 py-3 pr-12 rounded-xl border border-zinc-200 focus:ring-2 focus:ring-zinc-900 outline-none transition-all disabled:opacity-50"
+                            placeholder="••••••••"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-900 transition-colors"
+                        >
+                            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        </button>
+                    </div>
                 </div>
             </div>
 

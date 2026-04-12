@@ -1,45 +1,37 @@
 "use client"
 
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, Package } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export function ProductImageGallery({ imageUrls, name }: { imageUrls: string[], name: string }) {
-    const scrollRef = useRef<HTMLDivElement>(null)
+    const [currentIndex, setCurrentIndex] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
 
-    // Gestion du scroll automatique
+    // Auto-play logic
     useEffect(() => {
         if (!imageUrls || imageUrls.length <= 1 || isPaused) return
 
         const interval = setInterval(() => {
-            if (scrollRef.current) {
-                const { scrollLeft, clientWidth, scrollWidth } = scrollRef.current
-
-                // Si on est à la fin, on revient au début, sinon on avance
-                const isAtEnd = scrollLeft + clientWidth >= scrollWidth - 10
-                const scrollTo = isAtEnd ? 0 : scrollLeft + clientWidth
-
-                scrollRef.current.scrollTo({
-                    left: scrollTo,
-                    behavior: 'smooth'
-                })
-            }
-        }, 2000) // Intervalle de 2000ms
+            setCurrentIndex((prev) => (prev + 1) % imageUrls.length)
+        }, 4000) // Slower, more elegant interval
 
         return () => clearInterval(interval)
     }, [imageUrls, isPaused])
 
-    const scroll = (direction: 'left' | 'right') => {
-        if (scrollRef.current) {
-            const { scrollLeft, clientWidth } = scrollRef.current
-            const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth
-            scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' })
-        }
+    const next = () => {
+        if (!imageUrls) return
+        setCurrentIndex((prev) => (prev + 1) % imageUrls.length)
+    }
+
+    const prev = () => {
+        if (!imageUrls) return
+        setCurrentIndex((prev) => (prev - 1 + imageUrls.length) % imageUrls.length)
     }
 
     if (!imageUrls || imageUrls.length === 0) {
         return (
-            <div className="w-full h-full flex items-center justify-center text-zinc-300 bg-zinc-50">
+            <div className="w-full h-full flex items-center justify-center text-zinc-300 bg-zinc-50 dark:bg-zinc-900/50">
                 <Package className="w-12 h-12" />
             </div>
         )
@@ -47,47 +39,72 @@ export function ProductImageGallery({ imageUrls, name }: { imageUrls: string[], 
 
     return (
         <div
-            className="relative w-full h-full group/gallery"
-            onMouseEnter={() => setIsPaused(true)} // On met en pause au survol
-            onMouseLeave={() => setIsPaused(false)} // On reprend quand la souris part
+            className="relative w-full h-full group/gallery overflow-hidden cursor-grab active:cursor-grabbing"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
         >
-            {/* Conteneur de scroll masqué */}
-            <div
-                ref={scrollRef}
-                className="flex w-full h-full overflow-x-hidden snap-x snap-mandatory scrollbar-hide"
-            >
-                {imageUrls.map((url, index) => (
-                    <div key={index} className="w-full h-full flex-shrink-0 snap-center">
+            {/* Smooth Motion Gallery */}
+            <div className="w-full h-full flex">
+                <AnimatePresence initial={false}>
+                    <motion.div
+                        key={currentIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ 
+                            type: "spring", 
+                            stiffness: 300, 
+                            damping: 30,
+                            opacity: { duration: 0.4 }
+                        }}
+                        className="w-full h-full flex-shrink-0"
+                    >
                         <img
-                            src={url}
-                            alt={`${name} - ${index}`}
-                            className="w-full h-full object-cover transition-transform duration-700"
+                            src={imageUrls[currentIndex]}
+                            alt={`${name} - ${currentIndex}`}
+                            className="w-full h-full object-cover select-none"
+                            draggable={false}
                         />
-                    </div>
-                ))}
+                    </motion.div>
+                </AnimatePresence>
             </div>
 
-            {/* Flèches (uniquement si > 1 image) */}
+            {/* Navigation Controls */}
             {imageUrls.length > 1 && (
                 <>
-                    <button
-                        onClick={(e) => { e.preventDefault(); scroll('left'); }}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 backdrop-blur-md text-white opacity-0 group-hover/gallery:opacity-100 transition-all hover:bg-white/30 z-30 border border-white/10"
-                    >
-                        <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                        onClick={(e) => { e.preventDefault(); scroll('right'); }}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 backdrop-blur-md text-white opacity-0 group-hover/gallery:opacity-100 transition-all hover:bg-white/30 z-30 border border-white/10"
-                    >
-                        <ChevronRight className="w-4 h-4" />
-                    </button>
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-4 opacity-0 group-hover/gallery:opacity-100 transition-opacity">
+                        <button
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); prev(); }}
+                            className="p-3 rounded-full bg-black/20 backdrop-blur-xl text-white border border-white/10 hover:bg-black/40 transition-all active:scale-90"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                        </button>
+                    </div>
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 opacity-0 group-hover/gallery:opacity-100 transition-opacity">
+                        <button
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); next(); }}
+                            className="p-3 rounded-full bg-black/20 backdrop-blur-xl text-white border border-white/10 hover:bg-black/40 transition-all active:scale-90"
+                        >
+                            <ChevronRight className="w-5 h-5" />
+                        </button>
+                    </div>
 
-                    {/* Indicateur de pagination discret */}
-                    <div className="absolute bottom-4 right-4 z-30 pointer-events-none">
-                        <div className="bg-black/40 backdrop-blur-xl px-2.5 py-1 rounded-full border border-white/10">
-                            <p className="text-[10px] font-black text-white tracking-widest uppercase">
-                                {imageUrls.length} Photos
+                    {/* Indicators */}
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 z-30">
+                        {imageUrls.map((_, i) => (
+                            <div 
+                                key={i}
+                                className={`h-1 rounded-full transition-all duration-500 ${
+                                    i === currentIndex ? 'w-8 bg-white' : 'w-2 bg-white/40'
+                                }`}
+                            />
+                        ))}
+                    </div>
+
+                    <div className="absolute top-4 right-4 z-30 pointer-events-none">
+                        <div className="bg-black/40 backdrop-blur-xl px-3 py-1.5 rounded-xl border border-white/10 shadow-2xl">
+                            <p className="text-[10px] font-black text-white tracking-[0.2em] uppercase">
+                                {currentIndex + 1} / {imageUrls.length}
                             </p>
                         </div>
                     </div>
@@ -95,4 +112,4 @@ export function ProductImageGallery({ imageUrls, name }: { imageUrls: string[], 
             )}
         </div>
     )
-}
+}

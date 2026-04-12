@@ -1,4 +1,4 @@
-import { Vendor, Product, Order, OrderWithDetails } from '@/types/models'
+import { Vendor, Product, Order, OrderWithDetails, Category } from '@/types/models'
 import { IRepository } from './IRepository'
 
 export interface IVendorRepository extends IRepository<Vendor> {
@@ -7,10 +7,15 @@ export interface IVendorRepository extends IRepository<Vendor> {
 
 }
 
+export interface ICategoryRepository extends IRepository<Category> {
+    getBySlug(slug: string): Promise<Category | null>
+}
+
 export interface IProductRepository extends IRepository<Product> {
     create(item: { vendorId: string; name: string; price: number; stockQuantity?: number } & Partial<Product>): Promise<Product>;
     getByVendorId(vendorId: string): Promise<Product[]>
     getPublicByVendorSlug(slug: string): Promise<Product[]>
+    getByCategory(categoryId: string): Promise<Product[]>
 }
 
 export interface IOrderRepository extends IRepository<Order> {

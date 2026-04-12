@@ -17,7 +17,7 @@ export default async function EditProductPage({ params }: { params: { id: string
     }
 
     return (
-        <div className="max-w-4xl mx-auto space-y-12">
+        <div className="max-w-7xl mx-auto space-y-12">
             <header className="flex items-center justify-between">
                 <div className="space-y-3">
                     <Link

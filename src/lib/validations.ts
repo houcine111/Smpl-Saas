@@ -1,11 +1,14 @@
 import { z } from 'zod'
 import { isValidPhoneNumber } from 'libphonenumber-js'
 export const productSchema = z.object({
-    name: z.string().min(3, "Le nom doit contenir au moins 3 caractères").max(100),
-    price: z.number().positive("Le prix doit être supérieur à 0"),
-    stockQuantity: z.number().int().min(0, "Le stock ne peut pas être négatif").default(0),
-    imageUrls: z.array(z.string().url()).min(1, "Ajoutez au moins une image"),
+    name: z.string().trim().min(3, "Le nom doit contenir au moins 3 caractères").max(100),
+    price: z.number().positive("Le prix doit être supérieur à 0").max(1000000, "Le prix est trop élevé"),
+    stockQuantity: z.number().int().min(0, "Le stock ne peut pas être négatif").max(10000, "Le stock est trop élevé").default(0),
+    imageUrls: z.array(z.string().url()).min(1, "Ajoutez au moins une image").max(5, "Maximum 5 images autorisées"),
     isActive: z.boolean().default(true),
+    description: z.string().trim().max(2000, "La description est trop longue").nullable().optional(),
+    categoryId: z.string().uuid("Catégorie invalide").nullable().optional(),
+    currency: z.string().min(1, "Devise requise").default('DH'),
 })
 
 export const registerSchema = z.object({

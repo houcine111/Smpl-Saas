@@ -3,16 +3,20 @@
   "type": "frontend",
   "scope": "codebase",
   "localEndpoint": "http://localhost:3000/",
-  "serverPort": 62901,
+  "serverPort": 58556,
   "executionArgs": {
     "projectName": "mini-shop",
     "projectPath": "c:\\Users\\aitbe\\OneDrive\\Bureau\\Saas\\mini-shop",
-    "testIds": [],
-    "additionalInstruction": "Focus on testing the new 'Active' status toggle in the Admin User/Vendor table and verifying storefront visibility for inactive vendors. Also check that admins can edit vendor details.",
+    "testIds": [
+      "TC008",
+      "TC010",
+      "TC011"
+    ],
+    "additionalInstruction": "FOCUS: TEST ONLY VENDOR PRODUCT FLOW.\n1. Use Vendor credentials (email: vendor@example.com, password: password).\n2. TC010: Try to save a product with an empty name. Verify the RED error message 'Le nom doit contenir au moins 3 caractères' is visible.\n3. TC011: Try to upload 6 images. Verify the error message 'Maximum 5 images autorisées'.\n4. TC008: Create a product named 'Tagine Royal en Céramique':\n   - Price: 130\n   - Description: [A VERY LONG TEXT of 1000 characters about Safi craft, traditional hand-painting, and heat resistance].\n   - Save and verify redirect to product list.\n5. MODIFICATION TEST:\n   - Edit the newly created 'Tagine Royal en Céramique'.\n   - Update the description to add a paragraph about 'Entretien'.\n   - Change price to 125.\n   - Save and verify success toast.\n6. PUBLIC VIEW:\n   - Go to the storefront (/[slug]) and verify the Tagine shows the full description in the card popup with correct line breaks.\n\nDO NOT TEST ADMIN OR OTHER FEATURES. ONLY THESE STEPS.",
     "serverMode": "development",
     "envs": {
       "API_KEY": "sk-user-uNsRPAE-meiCI9td1D5qPMQUKPDzeo6Q3mk951LeEY4tUWcYR7xXC3H7khgwKSxmj2yPtg3zmD9Wa5mzbN0X_nlVtcYmqgf1ioiaxr_6QMQuYAmnZ8DKmEWZoZAliLCxtFo"
     }
   },
-  "proxy": "http://4566106f-b807-4977-8995-5af16cfc99cf:OV6UcWcB87ZnkP9RhpK9dw20Jyrmxpzn@tun.testsprite.com:8080"
+  "proxy": "http://8481fd7b-9f51-49ae-8343-90282bcf28ef:txXtnD1NcYx9D6XkbjlJsR9LDLoayVnE@tun.testsprite.com:8080"
 }

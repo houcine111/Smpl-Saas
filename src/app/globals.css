@@ -1,13 +1,11 @@
 @import "tailwindcss";
 
-
 :root {
   --background: #FDFCF8;
   --foreground: #2D3436;
   --card: #E3D5CA;
   --accent: #8FA998;
   --accent-vibrant: #6C8E77;
-  /* Plus saturé */
   --border: #F4EFEA;
   --glow: 0 0 20px rgba(143, 169, 152, 0.2);
 }
@@ -18,7 +16,6 @@
   --card: #141414;
   --accent: #8FA998;
   --accent-vibrant: #A4C3AF;
-  /* Plus clair pour le dark mode */
   --border: #1F1F1F;
   --glow: 0 0 30px rgba(143, 169, 152, 0.15);
 }
@@ -38,14 +35,29 @@ h4,
   font-weight: 700;
 }
 
-@layer components {
-  .btn-whatsapp {
-    @apply bg-[#8FA998] text-white px-6 py-3 rounded-2xl flex items-center justify-center gap-2 hover:opacity-90 transition-all font-medium;
-  }
+.btn-whatsapp {
+  background-color: var(--accent);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .card-premium {
-    @apply bg-[#E3D5CA] rounded-2xl shadow-sm border border-[#F4EFEA] overflow-hidden;
-  }
+.btn-whatsapp:hover {
+  opacity: 0.9;
+}
+
+.card-premium {
+  background-color: var(--card);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  overflow: hidden;
 }
 
 @keyframes shine {

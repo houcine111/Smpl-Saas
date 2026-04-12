@@ -1,5 +1,5 @@
 import { Database } from '@/types/database'
-import { Vendor, Product, Order } from '@/types/models'
+import { Vendor, Product, Order, Category } from '@/types/models'
 
 type DBProfile = Database['public']['Tables']['profiles']['Row']
 type DBProduct = Database['public']['Tables']['products']['Row']
@@ -24,7 +24,19 @@ export const mapProductToDomain = (product: DBProduct): Product => ({
     isActive: product.is_active,
     deletedAt: product.deleted_at,
     stockQuantity: product.stock_quantity || 0,
+    description: product.description,
+    categoryId: product.category_id,
+    currency: product.currency || 'DH',
     createdAt: product.created_at,
+})
+
+export type DBCategory = Database['public']['Tables']['categories']['Row']
+
+export const mapCategoryToDomain = (category: DBCategory): Category => ({
+    id: category.id,
+    name: category.name,
+    slug: category.slug,
+    createdAt: category.created_at,
 })
 
 export const mapOrderToDomain = (order: DBOrder): Order => ({

@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { SupabaseVendorRepository } from '@/repositories/supabase/SupabaseVendorRepository'
 import { SupabaseProductRepository } from '@/repositories/supabase/SupabaseProductRepository'
+import { SupabaseCategoryRepository } from '@/repositories/supabase/SupabaseCategoryRepository'
 import { notFound } from 'next/navigation'
 import { Store } from 'lucide-react'
 import StorefrontFeed from './StorefrontFeed'
@@ -74,11 +75,15 @@ export default async function StorefrontPage({ params }: PageProps) {
         )
     }
 
-    const products = await productRepo.getPublicByVendorSlug(slug)
+    const categoryRepo = new SupabaseCategoryRepository(supabase)
+    const [products, categories] = await Promise.all([
+        productRepo.getPublicByVendorSlug(slug),
+        categoryRepo.getAll()
+    ])
 
     return (
         <main className="min-h-screen bg-[#FDFCF8] dark:bg-[#050505]">
-            <StorefrontFeed vendor={vendor} products={products} />
+            <StorefrontFeed vendor={vendor} products={products} categories={categories} />
         </main>
     )
 }

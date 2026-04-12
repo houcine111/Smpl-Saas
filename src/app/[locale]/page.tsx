@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { ArrowRight, MessageSquare, ShieldCheck, Zap, CheckCircle2, Mail, Menu, X } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -25,10 +24,6 @@ export default function Home() {
             </div>
           </Link>
 
-          {/* Mobile ThemeToggle (Center) */}
-          <div className="md:hidden absolute left-1/2 -translate-x-1/2">
-            <ThemeToggle />
-          </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
@@ -38,7 +33,6 @@ export default function Home() {
 
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="hidden md:block">
-              <ThemeToggle />
             </div>
             <Link href="/login" className="hidden sm:block">
               <Button variant="ghost" size="sm">

@@ -1,10 +1,9 @@
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
-import { Home, Package, ShoppingBag, Settings, LogOut, ExternalLink } from 'lucide-react'
+import { Home, Package, ShoppingBag, Settings, LogOut, ExternalLink, AlertTriangle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { signOut } from '@/app/[locale]/auth/actions'
 import { getTranslations } from 'next-intl/server'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 export default async function DashboardLayout({
     children,
@@ -63,7 +62,6 @@ export default async function DashboardLayout({
                         />
                     </Link>
                     <div className="flex items-center gap-2">
-                        <ThemeToggle />
                     </div>
                 </div>
 
@@ -79,9 +77,9 @@ export default async function DashboardLayout({
                         <a
                             href={`/${profile.slug}`}
                             target="_blank"
-                            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-foreground text-background hover:opacity-90 transition-all font-black uppercase tracking-widest text-[10px]"
+                            className="flex items-center justify-center gap-3 px-4 py-4 rounded-2xl bg-accent text-background hover:scale-[1.02] shadow-xl shadow-accent/10 hover:shadow-accent/20 transition-all duration-300 font-black uppercase tracking-[0.2em] text-[10px] group/store"
                         >
-                            <ExternalLink className="w-4 h-4" />
+                            <ExternalLink className="w-4 h-4 group-hover/store:rotate-12 transition-transform" />
                             {t('viewStore')}
                         </a>
                     )}
@@ -99,19 +97,58 @@ export default async function DashboardLayout({
             </aside>
 
             {/* Content Area */}
-            <main className="p-6 md:p-10 max-w-5xl mx-auto">
+            <main className="p-6 md:p-10 max-w-5xl mx-auto space-y-8">
+                {(!profile?.slug || !profile?.store_name) && (
+                    <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-2xl p-6 flex items-start gap-4 animate-in slide-in-from-top-4 duration-500">
+                        <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-white shrink-0 shadow-lg shadow-amber-500/20">
+                            <AlertTriangle className="w-6 h-6" />
+                        </div>
+                        <div className="space-y-1">
+                            <h3 className="text-sm font-black text-amber-900 dark:text-amber-400 uppercase tracking-tight">Configuration Incomplète</h3>
+                            <p className="text-xs text-amber-700 dark:text-amber-500/80 font-medium">
+                                Votre boutique n'est pas encore visible publiquement. Veuillez définir un <strong>nom de boutique</strong> et un <strong>lien (slug)</strong> dans les paramètres.
+                            </p>
+                            <Link
+                                href="/dashboard/settings"
+                                className="inline-block mt-2 text-[10px] font-black uppercase tracking-widest text-amber-900 dark:text-amber-400 hover:underline"
+                            >
+                                Paramétrer ma boutique →
+                            </Link>
+                        </div>
+                    </div>
+                )}
                 {children}
             </main>
 
-            {/* Mobile Bottom Tab Bar */}
-            <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-background/80 backdrop-blur-lg border-t border-border flex items-center justify-around px-4 z-50">
-                <MobileNavItem href="/dashboard" icon={<Home className="w-6 h-6" />} label={tNav('home')} />
-                <MobileNavItem href="/dashboard/products" icon={<Package className="w-6 h-6" />} label={tNav('products')} />
-                <MobileNavItem href="/dashboard/orders" icon={<ShoppingBag className="w-6 h-6" />} label={tNav('orders')} />
-                <MobileNavItem href="/dashboard/settings" icon={<Settings className="w-6 h-6" />} label={tNav('settings')} />
-                <div className="flex flex-col items-center gap-1 group">
-                    <div className="scale-75"><ThemeToggle /></div>
-                    <span className="text-[8px] font-black uppercase tracking-wider text-zinc-400">Theme</span>
+            {/* Mobile Bottom Tab Bar - Floating Island Style */}
+            <nav className="md:hidden fixed bottom-6 left-4 right-4 h-20 bg-background/95 backdrop-blur-2xl border border-border grid grid-cols-5 items-center px-1 z-50 rounded-[2.5rem] shadow-2xl shadow-black/20 animate-in slide-in-from-bottom-10 duration-700">
+                <div className="flex justify-center">
+                    <MobileNavItem href="/dashboard" icon={<Home className="w-5 h-5" />} label={tNav('home')} />
+                </div>
+                <div className="flex justify-center">
+                    <MobileNavItem href="/dashboard/products" icon={<Package className="w-5 h-5" />} label={tNav('products')} />
+                </div>
+                
+                {profile?.slug && (
+                    <div className="flex justify-center">
+                        <a
+                            href={`/${profile.slug}`}
+                            target="_blank"
+                            className="flex flex-col items-center gap-1.5 group -mt-12 relative z-10"
+                        >
+                            <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center shadow-2xl shadow-accent/40 text-background border-4 border-background ring-8 ring-accent/5 animate-bounce-slow transition-transform active:scale-90 duration-500">
+                                <ExternalLink className="w-7 h-7 group-hover:rotate-12 transition-transform" />
+                            </div>
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-accent drop-shadow-sm whitespace-nowrap">{t('viewStore')}</span>
+                        </a>
+                    </div>
+                )}
+
+                <div className="flex justify-center">
+                    <MobileNavItem href="/dashboard/orders" icon={<ShoppingBag className="w-5 h-5" />} label={tNav('orders')} />
+                </div>
+                <div className="flex justify-center">
+                    <MobileNavItem href="/dashboard/settings" icon={<Settings className="w-5 h-5" />} label={tNav('settings')} />
                 </div>
             </nav>
         </div>
@@ -134,10 +171,12 @@ function MobileNavItem({ href, icon, label }: { href: string; icon: React.ReactN
     return (
         <Link
             href={href}
-            className="flex flex-col items-center gap-1 text-foreground/60 active:text-foreground transition-colors"
+            className="flex flex-col items-center gap-1 text-zinc-400 active:text-foreground transition-all hover:text-foreground group"
         >
-            {icon}
-            <span className="text-[10px] font-black uppercase tracking-wider">{label}</span>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:bg-muted/50 transition-colors">
+                {icon}
+            </div>
+            <span className="text-[8px] font-black uppercase tracking-widest whitespace-nowrap">{label}</span>
         </Link>
     )
 }

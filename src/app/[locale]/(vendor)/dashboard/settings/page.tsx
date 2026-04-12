@@ -5,7 +5,8 @@ import { notFound } from 'next/navigation'
 
 import { getTranslations } from 'next-intl/server'
 
-export default async function SettingsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'Dashboard' });
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()

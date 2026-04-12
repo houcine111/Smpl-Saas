@@ -12,6 +12,13 @@ export interface Vendor {
     createdAt: string
 }
 
+export interface Category {
+    id: string
+    name: string
+    slug: string
+    createdAt: string
+}
+
 export interface Product {
     id: string
     vendorId: string
@@ -21,6 +28,9 @@ export interface Product {
     isActive: boolean
     deletedAt: string | null
     stockQuantity: number
+    description: string | null
+    categoryId: string | null
+    currency: string
     createdAt: string
 }
 

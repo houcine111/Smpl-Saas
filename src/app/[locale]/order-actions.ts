@@ -58,18 +58,7 @@ export async function createOrder(input: OrderInput & { website?: string }) {
         throw new Error(`Désolé, le produit "${product.name}" est épuisé.`)
     }
 
-    // 3. Décrémentation du stock
-    const { error: updateError } = await supabase
-        .from('products')
-        .update({ stock_quantity: product.stock_quantity - 1 })
-        .eq('id', input.productId)
-        .gt('stock_quantity', 0) // Sécurité supplémentaire : évite le stock négatif
-
-    if (updateError) {
-        throw new Error("Erreur lors de la mise à jour du stock. Veuillez réessayer.")
-    }
-
-    // 4. Insertion de la commande
+    // 3. Insertion de la commande (On ne décrémente plus ici, on attend la confirmation du vendeur)
     const { error } = await supabase
         .from('orders')
         .insert({

@@ -9,6 +9,27 @@ export type Json =
 export interface Database {
     public: {
         Tables: {
+            categories: {
+                Row: {
+                    id: string
+                    name: string
+                    slug: string
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    name: string
+                    slug: string
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    name?: string
+                    slug?: string
+                    created_at?: string
+                }
+                Relationships: []
+            }
             orders: {
                 Row: {
                     created_at: string
@@ -60,7 +81,6 @@ export interface Database {
             products: {
                 Row: {
                     created_at: string
-
                     id: string
                     image_urls: string[] | null
                     is_active: boolean
@@ -69,28 +89,37 @@ export interface Database {
                     vendor_id: string
                     deleted_at: string | null
                     stock_quantity: number
+                    description: string | null
+                    category_id: string | null
+                    currency: string
                 }
                 Insert: {
                     created_at?: string
                     id?: string
-                    image_url?: string | null
+                    image_urls?: string[] | null
                     is_active?: boolean
                     name: string
                     price: number
                     vendor_id: string
                     deleted_at?: string | null
                     stock_quantity?: number
+                    description?: string | null
+                    category_id?: string | null
+                    currency?: string
                 }
                 Update: {
                     created_at?: string
                     id?: string
-                    image_url?: string | null
+                    image_urls?: string[] | null
                     is_active?: boolean
                     name?: string
                     price?: number
                     vendor_id?: string
                     deleted_at?: string | null
                     stock_quantity?: number
+                    description?: string | null
+                    category_id?: string | null
+                    currency?: string
                 }
                 Relationships: [
                     {
@@ -98,6 +127,13 @@ export interface Database {
                         columns: ["vendor_id"]
                         isOneToOne: false
                         referencedRelation: "profiles"
+                        referencedColumns: ["id"]
+                    },
+                    {
+                        foreignKeyName: "products_category_id_fkey"
+                        columns: ["category_id"]
+                        isOneToOne: false
+                        referencedRelation: "categories"
                         referencedColumns: ["id"]
                     }
                 ]

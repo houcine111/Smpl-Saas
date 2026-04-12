@@ -46,8 +46,24 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
     const { data: { user } } = await supabase.auth.getUser()
 
     // 1. Protection for /dashboard
-    if (normalizedPath.startsWith('/dashboard') && !user) {
-        return NextResponse.redirect(new URL(`/${locale}/login`, request.url))
+    if (normalizedPath.startsWith('/dashboard')) {
+        if (!user) {
+            return NextResponse.redirect(new URL(`/${locale}/login`, request.url))
+        }
+
+        // Fetch profile to check is_active
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('is_active, is_admin, slug, store_name')
+            .eq('id', user.id)
+            .single()
+
+        if (!profile || (!profile.is_active && !profile.is_admin)) {
+            // Redirect to login if not active (unless admin)
+            const redirectUrl = new URL(`/${locale}/login`, request.url)
+            redirectUrl.searchParams.set('error', 'inactive_account')
+            return NextResponse.redirect(redirectUrl)
+        }
     }
 
     // 2. Protection for /admin (Superuser)
@@ -59,13 +75,19 @@ export async function updateSession(request: NextRequest, existingResponse?: Nex
         // Check is_admin flag in profiles
         const { data: profile } = await supabase
             .from('profiles')
-            .select('is_admin')
+            .select('is_admin, is_active, slug, store_name')
             .eq('id', user.id)
             .single()
 
         if (!profile || !profile.is_admin) {
             // If not admin, redirect to vendor dashboard or home
             return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url))
+        }
+
+        if (!profile.is_active) {
+            const redirectUrl = new URL(`/${locale}/login`, request.url)
+            redirectUrl.searchParams.set('error', 'inactive_account')
+            return NextResponse.redirect(redirectUrl)
         }
     }
 

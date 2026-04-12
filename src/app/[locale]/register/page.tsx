@@ -3,19 +3,20 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { signUp } from '../auth/actions'
-import { Store, Mail, Lock, Link as LinkIcon, ArrowRight, Loader2 } from 'lucide-react'
+import { Store, Mail, Lock, Link as LinkIcon, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import { useTranslations } from 'next-intl'
-import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
 export default function RegisterPage() {
     const t = useTranslations('Auth.register')
     const [pending, setPending] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [phone, setPhone] = useState<string | undefined>()
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     async function handleSubmit(formData: FormData) {
         setPending(true)
@@ -34,9 +35,6 @@ export default function RegisterPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-background px-6 py-12 relative">
-            <div className="absolute top-8 right-8 flex items-center gap-4">
-                <ThemeToggle />
-            </div>
 
             <style jsx global>{`
                 .PhoneInput {
@@ -169,10 +167,17 @@ export default function RegisterPage() {
                                 <input
                                     required
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
-                                    className="w-full pl-11 pr-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
+                                    className="w-full pl-11 pr-12 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-accent transition-colors"
+                                >
+                                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                </button>
                             </div>
                         </div>
 
@@ -185,10 +190,17 @@ export default function RegisterPage() {
                                 <input
                                     required
                                     name="confirmPassword"
-                                    type="password"
+                                    type={showConfirmPassword ? "text" : "password"}
                                     placeholder="••••••••"
-                                    className="w-full pl-11 pr-4 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
+                                    className="w-full pl-11 pr-12 py-3 bg-background border border-border rounded-xl focus:ring-2 focus:ring-accent outline-none transition-all placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-accent transition-colors"
+                                >
+                                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                </button>
                             </div>
                         </div>
 

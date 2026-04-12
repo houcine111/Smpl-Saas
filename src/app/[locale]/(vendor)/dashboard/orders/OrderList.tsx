@@ -187,34 +187,48 @@ export default function OrderList({ initialOrders }: OrderListProps) {
                                                 {t('whatsapp')}
                                             </Button>
                                         </Link>
-
-                                        <div className="flex-1 sm:flex-none relative group/select">
-                                            {statusAction.isLoading && (
-                                                <div className="absolute inset-0 bg-background/50 backdrop-blur-[1px] z-10 rounded-2xl flex items-center justify-center">
-                                                    <Loader2 className="w-3.5 h-3.5 animate-spin text-foreground" />
-                                                </div>
+                                         <div className="flex-1 sm:flex-none flex items-center gap-2">
+                                            {order.status === 'PENDING' && (
+                                                <Button
+                                                    size="sm"
+                                                    onClick={() => handleStatusUpdate(order.id, 'CONFIRMED')}
+                                                    isLoading={statusAction.isLoading}
+                                                    leftIcon={<CheckCircle2 className="w-4 h-4" />}
+                                                    className="bg-emerald-500 hover:bg-emerald-600 text-white border-none shadow-lg shadow-emerald-500/20"
+                                                >
+                                                    Confirmer
+                                                </Button>
                                             )}
-                                            <div className={`flex items-center justify-between sm:justify-start gap-2 sm:gap-3 px-4 sm:px-6 py-3 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest ${statusConfig[order.status].color} border border-transparent shadow-sm group-hover/select:shadow-md transition-all`}>
-                                                <div className="flex items-center gap-2">
-                                                    {(() => {
-                                                        const Icon = statusConfig[order.status].icon
-                                                        return <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                                                    })()}
-                                                    <select
-                                                        value={order.status}
-                                                        onChange={(e) => handleStatusUpdate(order.id, e.target.value as OrderStatus)}
-                                                        className="bg-transparent border-none focus:ring-0 cursor-pointer appearance-none pr-1 outline-none text-current font-black"
-                                                    >
-                                                        {Object.entries(statusConfig).map(([val, { label }]) => (
-                                                            <option key={val} value={val} className="text-foreground bg-background">
-                                                                {label}
-                                                            </option>
-                                                        ))}
-                                                    </select>
+                                            
+                                            <div className="relative group/select min-w-[140px]">
+                                                {statusAction.isLoading && (
+                                                    <div className="absolute inset-0 bg-background/50 backdrop-blur-[1px] z-10 rounded-2xl flex items-center justify-center">
+                                                        <Loader2 className="w-3.5 h-3.5 animate-spin text-foreground" />
+                                                    </div>
+                                                )}
+                                                <div className={`flex items-center justify-between gap-2 px-4 py-3 rounded-xl sm:rounded-2xl text-[9px] sm:text-[10px] font-black uppercase tracking-widest ${statusConfig[order.status].color} border border-transparent shadow-sm group-hover/select:shadow-md transition-all`}>
+                                                    <div className="flex items-center gap-2">
+                                                        {(() => {
+                                                            const Icon = statusConfig[order.status].icon
+                                                            return <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                                                        })()}
+                                                        <select
+                                                            value={order.status}
+                                                            onChange={(e) => handleStatusUpdate(order.id, e.target.value as OrderStatus)}
+                                                            className="bg-transparent border-none focus:ring-0 cursor-pointer appearance-none pr-1 outline-none text-current font-black"
+                                                        >
+                                                            {Object.entries(statusConfig).map(([val, { label }]) => (
+                                                                <option key={val} value={val} className="text-foreground bg-background">
+                                                                    {label}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                    <ChevronRight className="w-3 h-3 opacity-50 rotate-90" />
                                                 </div>
-                                                <ChevronRight className="w-3 h-3 opacity-50 rotate-90" />
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </motion.div>

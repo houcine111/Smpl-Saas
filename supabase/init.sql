@@ -13,12 +13,21 @@ CREATE TABLE public.profiles (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Categories
+CREATE TABLE public.categories (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    name TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
 -- Products
 CREATE TABLE public.products (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     vendor_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
     name TEXT NOT NULL,
+    description TEXT,
     price NUMERIC NOT NULL,
+    category_id UUID REFERENCES public.categories(id) ON DELETE SET NULL,
     image_urls TEXT[],
     is_active BOOLEAN DEFAULT TRUE,
     deleted_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
@@ -40,6 +49,7 @@ CREATE TABLE public.orders (
 
 -- 3. RLS (Row Level Security)
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
@@ -49,6 +59,10 @@ CREATE POLICY "Public profiles are viewable by everyone" ON public.profiles
 
 CREATE POLICY "Users can update their own profile" ON public.profiles
     FOR UPDATE USING (auth.uid() = id);
+
+-- Categories Policies
+CREATE POLICY "Categories are viewable by everyone" ON public.categories
+    FOR SELECT USING (true);
 
 -- Policies for Products
 CREATE POLICY "Products are viewable by everyone" ON public.products

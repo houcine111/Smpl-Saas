@@ -12,15 +12,17 @@ interface UseActionOptions<T> {
 }
 
 export function useAction<TInput, TOutput>(
-    action: (data: TInput) => Promise<{ data?: TOutput; error?: string; status?: number }>,
+    action: (data: TInput) => Promise<{ data?: TOutput; error?: string; validationErrors?: Record<string, string[] | undefined>; status?: number }>,
     options?: UseActionOptions<TOutput>
 ) {
     const [isLoading, setIsLoading] = useState(false)
+    const [validationErrors, setValidationErrors] = useState<Record<string, string[] | undefined>>({})
     const router = useRouter()
     const t = useTranslations('Errors')
 
     const execute = async (data: TInput) => {
         setIsLoading(true)
+        setValidationErrors({})
         try {
             const result = await action(data)
 
@@ -32,6 +34,14 @@ export function useAction<TInput, TOutput>(
                 setTimeout(() => {
                     router.push('/login')
                 }, 2000)
+                return
+            }
+
+            if (result.validationErrors) {
+                setValidationErrors(result.validationErrors)
+                // Also show a general toast if there are validation errors
+                toast.error(t('INVALID_INPUT'))
+                options?.onError?.('INVALID_INPUT')
                 return
             }
 
@@ -55,5 +65,5 @@ export function useAction<TInput, TOutput>(
         }
     }
 
-    return { execute, isLoading }
+    return { execute, isLoading, validationErrors }
 }

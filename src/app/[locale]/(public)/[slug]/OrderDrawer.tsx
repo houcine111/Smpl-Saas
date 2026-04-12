@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Drawer } from 'vaul'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Vendor, Product } from '@/types/models'
-import { X, Send, User, Phone, MapPin, ShoppingBag, Loader2, MessageCircle } from 'lucide-react'
+import { X, Send, User, Phone, MapPin, ShoppingBag, Loader2, MessageCircle, Check } from 'lucide-react'
 import { createOrder } from '../../order-actions'
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
@@ -21,8 +21,10 @@ interface OrderDrawerProps {
 export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vendor }: OrderDrawerProps) {
     const t = useTranslations('Storefront')
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [customerPhone, setCustomerPhone] = useState<string | undefined>()
+    const [whatsappUrl, setWhatsappUrl] = useState<string>('')
 
     const selectedProducts = products.filter(p => cart[p.id] > 0)
     const totalPrice = selectedProducts.reduce((sum, p) => sum + p.price * cart[p.id], 0)
@@ -78,11 +80,10 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                 })
             )
 
-            // 3. Redirect to WhatsApp
-            window.open(`https://wa.me/${vendor.whatsappNumber?.replace('+', '')}?text=${message}`, '_blank')
-
-            // Close drawer and maybe clear cart (optional)
-            onOpenChange(false)
+            // 3. Prepare WhatsApp URL and set submitted state
+            const cleanPhone = vendor.whatsappNumber?.replace(/\D/g, '') || ''
+            setWhatsappUrl(`https://wa.me/${cleanPhone}?text=${message}`)
+            setIsSubmitted(true)
         } catch (err: any) {
             setError(err.message || "Une erreur est survenue")
         } finally {
@@ -151,79 +152,117 @@ export default function OrderDrawer({ isOpen, onOpenChange, cart, products, vend
                                     <span className="text-sm font-medium text-zinc-500">{t('totalToPay')}</span>
                                     <span className="text-xl font-black">{totalPrice.toLocaleString()} {t('currency')}</span>
                                 </div>
-                            </div>
+                            </div>                            <AnimatePresence mode="wait">
+                                {!isSubmitted ? (
+                                    <motion.form 
+                                        key="order-form"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        onSubmit={handleCheckout} 
+                                        className="space-y-5"
+                                    >
+                                        <div className="grid grid-cols-1 gap-5">
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                                                    {t('fullName')}
+                                                </label>
+                                                <div className="relative group">
+                                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground transition-colors" />
+                                                    <input
+                                                        required
+                                                        name="customerName"
+                                                        placeholder="Mohammed Alami"
+                                                        className="w-full pl-11 pr-4 py-3.5 bg-muted/50 border border-border rounded-xl focus:ring-2 focus:ring-foreground outline-none transition-all"
+                                                    />
+                                                </div>
+                                            </div>
 
-                            {/* Form */}
-                            <form onSubmit={handleCheckout} className="space-y-5">
-                                <div className="grid grid-cols-1 gap-5">
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            {t('fullName')}
-                                        </label>
-                                        <div className="relative group">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-black dark:group-focus-within:text-white transition-colors" />
-                                            <input
-                                                required
-                                                name="customerName"
-                                                placeholder="Mohammed Alami"
-                                                className="w-full pl-11 pr-4 py-3.5 bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl focus:ring-2 focus:ring-black dark:focus:ring-white outline-none transition-all"
-                                            />
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                                                    {t('phone')}
+                                                </label>
+                                                <div className="relative group overflow-hidden bg-muted/50 border border-border rounded-xl focus-within:ring-2 focus-within:ring-foreground transition-all">
+                                                    <PhoneInput
+                                                        international
+                                                        defaultCountry="MA"
+                                                        value={customerPhone}
+                                                        onChange={setCustomerPhone}
+                                                        placeholder="06 12 34 56 78"
+                                                        className="w-full"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                                                    {t('city')}
+                                                </label>
+                                                <div className="relative group">
+                                                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-foreground transition-colors" />
+                                                    <input
+                                                        required
+                                                        name="customerCity"
+                                                        placeholder="Casablanca"
+                                                        className="w-full pl-11 pr-4 py-3.5 bg-muted/50 border border-border rounded-xl focus:ring-2 focus:ring-foreground outline-none transition-all"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            {t('phone')}
-                                        </label>
-                                        <div className="relative group overflow-hidden bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl focus-within:ring-2 focus-within:ring-black dark:focus-within:ring-white transition-all">
-                                            <PhoneInput
-                                                international
-                                                defaultCountry="MA"
-                                                value={customerPhone}
-                                                onChange={setCustomerPhone}
-                                                placeholder="06 12 34 56 78"
-                                                className="w-full"
-                                            />
+                                        {error && (
+                                            <p className="text-sm text-destructive bg-destructive/10 px-4 py-3 rounded-xl border border-destructive/20 transition-all">
+                                                {error}
+                                            </p>
+                                        )}
+
+                                        <button
+                                            disabled={isSubmitting}
+                                            type="submit"
+                                            className="w-full py-4 bg-[#25D366] text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 shadow-xl shadow-[#25D366]/20 mt-4"
+                                        >
+                                            {isSubmitting ? (
+                                                <Loader2 className="w-5 h-5 animate-spin" />
+                                            ) : (
+                                                <>
+                                                    <Check className="w-5 h-5" />
+                                                    Confirmer la commande
+                                                </>
+                                            )}
+                                        </button>
+                                    </motion.form>
+                                ) : (
+                                    <motion.div 
+                                        key="success-view"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="text-center py-10 space-y-8"
+                                    >
+                                        <div className="w-20 h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto border-4 border-emerald-500/20">
+                                            <Check className="w-10 h-10 stroke-[3]" />
                                         </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">
-                                            {t('city')}
-                                        </label>
-                                        <div className="relative group">
-                                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 group-focus-within:text-black dark:group-focus-within:text-white transition-colors" />
-                                            <input
-                                                required
-                                                name="customerCity"
-                                                placeholder="Casablanca"
-                                                className="w-full pl-11 pr-4 py-3.5 bg-zinc-100 dark:bg-zinc-900 border-none rounded-xl focus:ring-2 focus:ring-black dark:focus:ring-white outline-none transition-all"
-                                            />
+                                        <div className="space-y-3">
+                                            <h3 className="text-3xl font-serif font-black italic text-foreground">Commande Prête !</h3>
+                                            <p className="text-muted-foreground font-medium">Votre commande a été enregistrée. Cliquez ci-dessous pour l'envoyer directement via WhatsApp.</p>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {error && (
-                                    <p className="text-sm text-red-500 bg-red-50 dark:bg-red-950/20 px-4 py-3 rounded-xl border border-red-100 dark:border-red-900/30">
-                                        {error}
-                                    </p>
+                                        <a
+                                            href={whatsappUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex w-full py-5 bg-[#25D366] text-white rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs items-center justify-center gap-4 hover:scale-105 transition-all shadow-2xl shadow-[#25D366]/30"
+                                        >
+                                            <MessageCircle className="w-6 h-6" />
+                                            Envoyer sur WhatsApp
+                                        </a>
+                                        <button 
+                                            onClick={() => onOpenChange(false)}
+                                            className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                                        >
+                                            Fermer
+                                        </button>
+                                    </motion.div>
                                 )}
-
-                                <button
-                                    disabled={isSubmitting}
-                                    type="submit"
-                                    className="w-full py-4 bg-[#25D366] text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:opacity-90 active:scale-[0.98] transition-all disabled:opacity-50 shadow-xl shadow-[#25D366]/20 mt-4"
-                                >
-                                    {isSubmitting ? (
-                                        <Loader2 className="w-5 h-5 animate-spin" />
-                                    ) : (
-                                        <>
-                                            <MessageCircle className="w-5 h-5" />
-                                            {t('drawerButton')}
-                                        </>
-                                    )}
-                                </button>
-                            </form>
+                            </AnimatePresence>
                         </div>
                     </div>
                 </Drawer.Content>

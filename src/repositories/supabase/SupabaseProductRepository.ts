@@ -55,6 +55,20 @@ export class SupabaseProductRepository implements IProductRepository {
             .eq('vendor_id', vendor.id)
             .eq('is_active', true)
             .is('deleted_at', null)
+            .order('created_at', { ascending: false })
+
+        if (error || !data) return []
+        return data.map(mapProductToDomain)
+    }
+
+    async getByCategory(categoryId: string): Promise<Product[]> {
+        const { data, error } = await this.supabase
+            .from('products')
+            .select('*')
+            .eq('category_id', categoryId)
+            .eq('is_active', true)
+            .is('deleted_at', null)
+            .order('created_at', { ascending: false })
 
         if (error || !data) return []
         return data.map(mapProductToDomain)
@@ -70,6 +84,9 @@ export class SupabaseProductRepository implements IProductRepository {
                 image_urls: item.imageUrls || [],
                 is_active: item.isActive ?? true,
                 stock_quantity: item.stockQuantity ?? 0,
+                description: item.description,
+                category_id: item.categoryId,
+                currency: item.currency || 'DH',
             })
             .select()
             .single()
@@ -87,6 +104,9 @@ export class SupabaseProductRepository implements IProductRepository {
                 image_urls: item.imageUrls,
                 is_active: item.isActive,
                 stock_quantity: item.stockQuantity,
+                description: item.description,
+                category_id: item.categoryId,
+                currency: item.currency,
             })
             .eq('id', id)
             .select()

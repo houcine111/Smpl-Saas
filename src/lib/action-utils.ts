@@ -4,6 +4,7 @@ import { ZodSchema } from 'zod'
 export type ActionState<T> = {
     data?: T
     error?: string
+    validationErrors?: Record<string, string[] | undefined>
     status?: number
 }
 
@@ -22,7 +23,11 @@ export async function handleAction<TInput, TOutput>(
     // 1. Validation Zod
     const result = schema.safeParse(data)
     if (!result.success) {
-        return { error: 'INVALID_INPUT', status: 400 }
+        return { 
+            error: 'INVALID_INPUT', 
+            validationErrors: result.error.flatten().fieldErrors,
+            status: 400 
+        }
     }
 
     try {

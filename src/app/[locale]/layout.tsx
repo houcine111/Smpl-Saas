@@ -32,39 +32,39 @@ export async function generateMetadata({
   const { locale } = await params;
   console.log(`>>> Building metadata for locale: ${locale}`);
   try {
-  const t = await getTranslations({ locale, namespace: 'Seo' });
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const t = await getTranslations({ locale, namespace: 'Seo' });
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-  return {
-    title: t('title'),
-    description: t('description'),
-    metadataBase: new URL(siteUrl),
-    alternates: {
-      canonical: `/${locale}`,
-    },
-    openGraph: {
+    return {
       title: t('title'),
       description: t('description'),
-      url: `/${locale}`,
-      siteName: 'Smpl',
-      images: [
-        {
-          url: '/Smpl.jpg',
-          width: 800,
-          height: 800,
-          alt: 'Smpl Logo',
-        },
-      ],
-      locale: locale,
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      images: ['/Smpl.jpg'],
-    },
-  };
+      metadataBase: new URL(siteUrl),
+      alternates: {
+        canonical: `/${locale}`,
+      },
+      openGraph: {
+        title: t('title'),
+        description: t('description'),
+        url: `/${locale}`,
+        siteName: 'Smpl',
+        images: [
+          {
+            url: '/Smpl.jpg',
+            width: 800,
+            height: 800,
+            alt: 'Smpl Logo',
+          },
+        ],
+        locale: locale,
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: t('title'),
+        description: t('description'),
+        images: ['/Smpl.jpg'],
+      },
+    };
   } catch (error) {
     console.error(`>>> Error building metadata for locale ${locale}:`, error);
     return {
@@ -98,7 +98,7 @@ export default async function RootLayout({
       <body
         className={`${geist.variable} ${readexPro.variable} antialiased`}
       >
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
           <NextIntlClientProvider messages={messages}>
             {children}
             <Toaster position="top-center" richColors />

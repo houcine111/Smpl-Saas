@@ -27,7 +27,8 @@ export default async function DashboardPage() {
     const storeName = profileRes.data?.store_name || 'Vendeur'
 
     const totalSales = orders.reduce((sum, order) => {
-        if (order.status !== 'CANCELLED') {
+        const confirmedStatuses = ['CONFIRMED', 'SHIPPED', 'DELIVERED']
+        if (confirmedStatuses.includes(order.status)) {
             return sum + (order.product?.price || 0)
         }
         return sum

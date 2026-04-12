@@ -15,7 +15,10 @@ export async function createProductAction(formData: FormData) {
         price: parseFloat(formData.get('price') as string || '0'),
         stockQuantity: parseInt(formData.get('stock_quantity') as string || '0'),
         imageUrls: JSON.parse(formData.get('image_urls') as string || '[]'),
-        isActive: true
+        isActive: true,
+        description: formData.get('description') as string || null,
+        categoryId: formData.get('category_id') as string || null,
+        currency: formData.get('currency') as string || 'DH',
     }
 
     return handleAction(productSchema, rawData, async (data, userId) => {
@@ -38,7 +41,10 @@ export async function updateProductAction(id: string, formData: FormData) {
         price: parseFloat(formData.get('price') as string || '0'),
         stockQuantity: parseInt(formData.get('stock_quantity') as string || '0'),
         isActive: formData.get('is_active') === 'on',
-        imageUrls: JSON.parse(formData.get('image_urls') as string || '[]')
+        imageUrls: JSON.parse(formData.get('image_urls') as string || '[]'),
+        description: formData.get('description') as string || null,
+        categoryId: formData.get('category_id') as string || null,
+        currency: formData.get('currency') as string || 'DH',
     }
 
     return handleAction(productSchema, rawData, async (data) => {

@@ -1,11 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { SupabaseProductRepository } from '@/repositories/supabase/SupabaseProductRepository'
+import { SupabaseCategoryRepository } from '@/repositories/supabase/SupabaseCategoryRepository'
 import Link from 'next/link'
 import { Plus, Package } from 'lucide-react'
 import ProductList from '@/components/products/ProductList'
 import { getTranslations } from 'next-intl/server'
 
-export default async function ProductsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function ProductsPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'Dashboard' });
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -13,7 +15,11 @@ export default async function ProductsPage({ params: { locale } }: { params: { l
     if (!user) return null
 
     const productRepo = new SupabaseProductRepository(supabase)
-    const products = await productRepo.getByVendorId(user.id)
+    const categoryRepo = new SupabaseCategoryRepository(supabase)
+    const [products, categories] = await Promise.all([
+        productRepo.getByVendorId(user.id),
+        categoryRepo.getAll()
+    ])
 
     return (
         <div className="space-y-10">
@@ -49,7 +55,7 @@ export default async function ProductsPage({ params: { locale } }: { params: { l
                     </Link>
                 </div>
             ) : (
-                <ProductList initialProducts={products} />
+                <ProductList initialProducts={products} categories={categories} />
             )}
         </div>
     )
